@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Assign Complaint</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let entry of jobtypes">
+      <ion-label>{{entry.job_type}}</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="entry.isChecked" name="entryx" (ionChange)="checkEvent(entry)" ></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-button class="btn-green" (click) ="onDismissPopover()" >Submit</ion-button>
+</ion-content>

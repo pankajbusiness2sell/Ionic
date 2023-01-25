@@ -1,0 +1,106 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  <ion-title>Completed</ion-title>
+  <ion-buttons slot="primary">
+    <ion-button (click)="refreshPage()"><ion-icon name="reload-outline"></ion-icon></ion-button>
+      <ion-button (click)="gotoChat()">
+      <ion-icon slot="icon-only" name="notifications" >
+      <span><ion-badge class="badgeIconNew badgeIcon" *ngIf="notificationCount !== '0'" item-end >{{ notificationCount }}</ion-badge></span>
+      </ion-icon>
+      </ion-button>
+      <ion-button (click)="moveToTask()">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-searchbar
+  #inputSearch
+  (ionClear)="cancelled()" (input)="getItems(inputSearch.value)" (ionCancel)="cancelled()">
+  </ion-searchbar>
+  
+  <!-- <ion-searchbar #inputSearch (ionInput)="getItems(inputSearch.value)" (ionCancel)="getCompleteJobByRequest()"></ion-searchbar> -->
+  </ion-header>
+  
+  <ion-content padding>
+  
+  <div class="newjob_content" *ngIf="dashboardData.if_bool">
+  <span *ngFor="let newJobResponse of dashboardData.result">
+  <!-- {{ newJobResponse.data | json }} -->
+  <span *ngIf="newJobResponse.data.all_completed_jobs === 'undefined'; then noCompletedjobs; else showCompletedJobs"></span>
+  
+  <ng-template #noCompletedjobs>
+  <ion-card class="dumm card">
+  <ion-card-content class="card-content">
+  <ion-icon ios="ios-close-circle-outline" class="no-jobs" md="md-close-circle"></ion-icon>
+  <span class="noting-found">No Jobs Found</span>
+  </ion-card-content>
+  </ion-card>
+  </ng-template>
+  <ng-template #showCompletedJobs>
+  <span *ngFor="let newJobs of newJobResponse.data.all_completed_jobs">
+  <!-- {{ newJobs | json }} -->
+  <ion-card class="dumm card">
+  <ion-card-content class="card-content">
+  <div class="listingSection" (click)="showActiveJobDetail(newJobs)">
+  <!-- {{ newJobs.jobID }} -->
+  <div class="leftBox">
+  <div class="listingLeft">
+  <span class="jobId">J#{{ newJobs.job_id }}</span>
+  <span class="amount">
+  <span class="amt">$</span>
+  {{ newJobs.amount_staff }}
+  </span>
+  <span class="preLine dateTime">
+  <span class="opacityLow">{{ newJobs.job_date | date:'dd LLL yy' }}</span>
+  <span class="dates">{{ newJobs.job_time }}</span>
+  </span>
+  </div>
+  </div>
+  <div class="rightBox">
+  <div class="listingRight">
+  <strong class="title-card">{{ newJobs?.clientDetail?.name }}</strong>
+  <ul class="jobType">
+  <li *ngFor="let jobTypeData of newJobs.jobType">
+  {{ jobTypeData.description }}
+  </li>
+  </ul>
+  <p class="microSpace">
+  <ion-icon name="location-outline" class="micro_pin"></ion-icon> {{ newJobs?.clientDetail?.address }}</p>
+  <span class="mid-area">
+  <p>
+  <ion-icon name="link" class="nid_link"></ion-icon>{{ newJobs?.clientDetail?.suburb }}</p>
+  <div class="plus_add_main dropdown">
+  <a href="tel:{{newJobs.clientDetail.phone}}" class="callMe">
+  <ion-icon name="call"></ion-icon>{{ newJobs?.clientDetail?.phone }} </a>
+  </div>
+  </span>
+  <span class="call_num">
+  <a href="tel:{{newJobs.clientDetail.phone}}"></a>
+  </span>
+  </div>
+  </div>
+  </div>
+  </ion-card-content>
+  </ion-card>
+  </span>
+  </ng-template>
+  </span>
+  </div>
+  
+  <ion-card *ngIf="noRecords">
+  <ion-card-content></ion-card-content>
+  </ion-card>
+  
+  <!-- <ion-infinite-scroll (ionInfinite)="doInfinite($event)" *ngIf="page < totalPage">
+  <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll> -->
+  
+  <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())" *ngIf="!noRecords">
+  <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  
+  </ion-content>

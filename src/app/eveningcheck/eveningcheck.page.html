@@ -1,0 +1,70 @@
+<!--
+  Generated template for the EveningCheckPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header color="primary">
+
+  <ion-toolbar>
+    <!-- <ion-title>Notification Check <button ion-button color="secondary"    (click)="openInfoByType(1, jobData)">X</button> </ion-title> -->
+    <ion-title>Notification Check</ion-title>    
+  </ion-toolbar>
+
+</ion-header>
+
+           
+  <ion-content padding>      
+           
+      <div class="textdiv" *ngIf="pmCheckFirst == 0 || pmCheckFirst == 1">
+              <p>Have you contacted  {{clientname}}   for tomorrows job  {{jobData.jobID}}  ? </p>
+              <ion-button color="secondary" (click)="openInfoByType(2, jobData)">Yes</ion-button>
+              <ion-button color="secondary" *ngIf="pmCheckFirst != 1" (click)="openInfoByType(1, jobData)">No</ion-button>
+              <ion-button color="secondary" *ngIf="pmCheckFirst == 1" (click)="openInfoByType(3, jobData)">No</ion-button>
+        </div> 
+
+      <div>           
+     
+        <div class="textdiv" *ngIf="pmCheckFirst == 2 && jobtimeChangeDate == false">  
+          <ion-text color="secondary">   
+            Please if you can select the time you and client have agreed on? 
+          </ion-text>   
+                        
+          <span class="mid-area">    
+              <ion-label>Please Choose Job Time</ion-label>
+              <ion-select  [(ngModel)]="jobTime" (ionChange)="updateContactToCustomer(jobTime, jobData)" name="jobTime">
+              <ion-select-option value="0">Select Team</ion-select-option>   
+              <ion-select-option *ngFor="let dtime of timeData" value="{{dtime}}">{{dtime}}</ion-select-option>
+            </ion-select>  
+                
+          </span>              
+
+          <!-- <button ion-button type="submit" ion-full (click)="updateContactToCustomer(jobTime, jobData)">Time Save</button> -->
+
+        </div>
+                   
+          <div class="textdiv" *ngIf="pmCheckFirst == 1"> 
+            <ion-text color="secondary">
+              Please Call  {{clientname}}  on <a href="javascript:void(0)" class="callMe">{{clientnumber}} </a>  to confirm the Start time, Parking and Access to the property. 
+              We will recheck with you for start time in 30 minutes. Thank you      
+            </ion-text> 
+        </div>
+   
+        <div class="textdiv" *ngIf="pmCheckFirst == 3">     
+          <ion-text color="secondary">
+            Please Call {{clientname}} on <a href="javascript:void(0)" class="callMe">{{clientnumber}} </a> to confirm the Start time, Parking and Access to the property. 
+            And Contact office in next 30 minutes for Start time. Failing to do so may end in losing this job for tomorrow. Thanks     
+          </ion-text> 
+      </div>
+ 
+
+      <div class="textdiv" *ngIf="pmCheckFirst == 2 && jobtimeChangeDate == true">   
+        <ion-text color="secondary">
+          Thanks you letting us know your start time for jobid  {{jobData.jobID}} . 
+          Please make sure that you arrive at the job 15 minutes early. 
+          As first Impression is last inpression. 
+        </ion-text> 
+      </div>
+    </div>
+
+  </ion-content>

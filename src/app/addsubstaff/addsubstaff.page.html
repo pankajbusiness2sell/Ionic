@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar class="substaff-navbar" color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+      <ion-title>{{title}}</ion-title>
+    <!-- <ion-buttons end>
+        <ion-button class="button" color="royal" (click)="saveNewStaff()">{{actionName}}</ion-button>
+      </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+<!-- RESPONSES -->
+<span *ngIf="response === ''; then noResponse; else showResponse"></span>
+
+<ng-template #showResponse>
+  <span [ngClass]="{
+    'alert-success': responseVal === 200 ? true : false,
+    'alert-danger': responseVal === 400 ? true : false
+  }">
+    {{response}}
+  </span>
+</ng-template>
+
+<ng-template #noResponse></ng-template>
+
+<!-- DEFAULT MESSAGE -->
+<ion-list>
+  <ion-list-header fill="outline" color="light">
+      Please send License, Insurance and Police Check to substaff@bcic.com.au to get this staff approved.
+  </ion-list-header>
+</ion-list>
+
+<ion-item-group>
+  <ion-item-divider color="light">Personal Details</ion-item-divider>
+  <ion-item>
+      <ion-label position="floating">Full Name</ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="fname"></ion-input>
+  </ion-item>
+
+  <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="email"></ion-input>
+  </ion-item>
+
+  <ion-item>
+      <ion-label position="floating">Phone</ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="phone"></ion-input>
+  </ion-item>
+
+  <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="password"></ion-input>
+  </ion-item>
+
+</ion-item-group>
+<br />
+<ion-button expand="block" color="primary" (click)="saveNewStaff()">{{actionName}}</ion-button>
+</ion-content>

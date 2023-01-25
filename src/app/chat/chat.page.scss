@@ -1,0 +1,193 @@
+:host {
+    .header  {
+      .toolbar  {
+        box-shadow: 0 2px 11px 0 rgba(0,0,0,0.3);
+        padding: 19px !important;
+        .toolbar-background{
+            --background: linear-gradient(to right, #134c4f , #0098a0);
+        }
+        .back-button  {
+          color: #FFFFFF;
+        }
+        .toolbar-title {
+          font-size: 20px;
+          font-weight: 300;
+          color: #FFFFFF;
+        }
+      }
+    }
+   .footer {
+      position: absolute;
+      bottom: 0;
+      height: auto;
+      box-shadow: 0 2px 7px 0 rgba(0,0,0,0.2);
+      background: #FFF;
+      .button  {
+        height: auto !important;
+      }
+      .button-inner {
+        .icon {
+          background: #FFF;
+          --background: linear-gradient(to right, #134c4f , #0098a0);
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: auto;
+          font-size: 35px;
+          padding-bottom: 0;
+          min-height: 35px;
+        }
+      }
+  }
+  
+    ion-content .scroll-content {
+      background-color: #fff;
+      margin-bottom: 75px !important;
+      margin-top: 55px !important;
+    }
+  
+    
+  
+    .input-wrap {
+      margin: 10px;
+      display: flex;
+      padding: 5px;
+      background: #f6f7f7;
+      border-radius: 10px;
+      textarea {
+        flex: 1;
+        border: 0;
+        background: #f6f7f7;
+        font-size: 16px;
+        font-weight: 200;
+        padding: 0;
+        line-height: 44px;
+        height: 44px;
+      }
+    }
+  
+    .message-wrap {
+      padding: 0 10px;
+      .message {
+        position: relative;
+        padding: 7px 0;
+        .user-img {
+          position: absolute;
+          border-radius: 45px;
+          width: 45px;
+          height: 45px;
+          box-shadow: 0 0 2px rgba(0, 0, 0, 0.36);
+        }
+  
+        .msg-detail {
+          width: 100%;
+          display: inline-block;
+          p {
+            margin: 0;
+          }
+          .msg-info {
+            p {
+              font-size: .8em;
+              color: #888;
+            }
+          }
+  
+          .msg-content {
+            position: relative;
+            margin-top: 5px;
+            border-radius: 10px 10px 10px 0;
+            color: #fff;
+            width: auto;
+            max-width: 80%;
+            span.triangle {
+              background-color: #fff;
+              border-radius: 2px;
+              height: 8px;
+              width: 8px;
+              top: 12px;
+              display: block;
+              border-style: solid;
+              border-color: #ddd;
+              border-width: 1px;
+              -webkit-transform: rotate(45deg);
+              transform: rotate(45deg);
+              position: absolute;
+            }
+          }
+  
+        }
+      }
+  
+      .message.left {
+        .msg-content {
+          --background: linear-gradient(to right, #ebeeef, #e8e8e8);
+          float: left;
+        }
+        .user-img {
+          left: 0;
+        }
+        .msg-content {
+          color: #343434;
+          span.triangle {
+            display:none !important;
+          }
+          .line-breaker {
+            white-space: pre-line;
+            background: linear-gradient(to right, #ebeeef, #e8e8e8);
+            padding: 10px;
+            border-radius: 10px 10px 10px 0px;
+            color: #343434;
+            font-size: 15px;
+          }
+        }
+  
+      }
+  
+      .message.right {
+        .msg-detail {
+          .msg-info {
+            text-align: right;
+          }
+        }
+        .user-img {
+          right: 0;
+        }
+        ion-spinner {
+          position: absolute;
+          right: 10px;
+          top: 50px;
+        }
+        .msg-content {
+          border-radius: 10px 10px 0 10px;
+          --background: linear-gradient(to right, #134c4f , #0098a0);
+          float: right;
+          span.triangle {
+            display: none !important;
+            background-color: #134c4f;
+            border-bottom-width: 0;
+            border-left-width: 0;
+            right: -5px;
+          }
+          .line-breaker {
+            white-space: pre-line;
+            background: linear-gradient(to right, #134c4f , #0098a0);
+            padding: 10px;
+            border-radius: 10px 10px 0px 10px;
+            font-size:15px;
+          }
+        }
+      }
+    }
+    ion-infinite-scroll-content{
+      min-height: 15px !important;
+    }
+    .msg-send {
+      color: #134c4f;
+    }
+  
+  }
+  

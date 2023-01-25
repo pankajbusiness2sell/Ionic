@@ -1,0 +1,146 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Quote - {{quoteid}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <!-- RESPONSES -->
+  <span *ngIf="response === ''; then noResponse; else showResponse"></span>
+
+  <ng-template #showResponse>
+    <span [ngClass]="{
+      'alert-success': responseVal == 200 ? true : false,
+      'alert-danger': responseVal == 400 ? true : false
+    }">
+      {{response}}
+    </span>
+  </ng-template>
+
+  <ng-template #noResponse></ng-template>
+
+
+  <ng-container condition-apply *ngIf="this.api_show_payment == false">
+    <p>{{this.api_show_payment_msg}}</p>
+  </ng-container>
+  
+  <ng-container condition-apply *ngIf="this.api_show_payment == true">
+
+  <ion-label 
+    style='font-size: 40px; display:flex; justify-content: center; '>PAY - ${{this.payValueHeading}}</ion-label>
+  
+    <ion-label *ngIf="this.api_paidamount > 0" style="display:flex; justify-content: center;">
+      Total Amount - ${{this.api_totalamount}}
+    </ion-label>
+    <ion-label *ngIf="this.api_paidamount > 0" style="display:flex; justify-content: center;">
+    Advance Payment - ${{this.api_paidamount}}
+    </ion-label>
+  <ion-item-group> 
+
+   
+    <form  
+    name="member_job_payment" 
+    data-eway-encrypt-key="5zjiLI247hDGo/HNbm4TklK2ejjWKE58LxBjy8u1RkWZJxFFtVXxpoC5kIvI/Y1vlvZofCKOUWqT2V3rQ4adB/ir6hBW1IcVRQO3MhRNTxfoi4kfkm6jgtx5syVmjnHlXIvhJ8GA5nzjSvHJAzKuKdqWnxnshQr0bpmhRv7IgC18Obz8P/YntK+O4ANL40rHej8/MNuPSQDEwobqi2OQV6Ff24dFRiH+uc7+DhbBebe3hAvMv6WQm0VoLa+trRky1pAJbslg1kq8dDDDRaKav8fgj2OO21wAMFSotxglH//YQuAKFOKAweKF1pouQlF45HT0V98Piv6X17nACICXGw==">
+
+    
+         
+    <ion-item>
+      <ion-label position="floating">Pay Amount<span style="color: red">*</span></ion-label>
+      <ion-select (ionChange)="updateRestAmt()" [(ngModel)]="payAmt" name="payAmt">
+        <ion-select-option *ngIf="api_typepayment == 2" value="{{this.api_minamt}}">${{this.api_minamt}}</ion-select-option>
+        <ion-select-option *ngIf="api_restamt !== 0" value="{{this.api_restamt}}">${{this.api_restamt}}</ion-select-option>
+        <ion-select-option value="0">Other Amount</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="payAmt == 0 ">
+      <ion-label position="floating">Amount (AUD)<span style="color: red">*</span></ion-label>
+      <ion-input type="text" (change)="updateRestAmt()" clearInput [(ngModel)]="extraAmount" name="extraAmount" required></ion-input>
+    </ion-item>
+
+    <ng-container condition-apply *ngIf="this.api_eway_token == 0 || this.api_ischecked == false">
+      
+      <ion-item>
+        <ion-label position="floating">Name on Card<span style="color: red">*</span></ion-label>
+        <ion-input autocapitalize="on" type="text" clearInput [(ngModel)]="nameoncard" name="nameoncard" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Card Number<span style="color: red">*</span></ion-label>
+        <ion-input type="text" clearInput [(ngModel)]="cardnumber" name="cardnumber" required></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="floating">Expiry Month<span style="color: red">*</span></ion-label>
+        <ion-select [(ngModel)]="expirymonth" name="expirymonth">
+          <ion-select-option value="01">01 (Jan)</ion-select-option>
+          <ion-select-option value="02">02 (Feb)</ion-select-option>
+          <ion-select-option value="03">03 (Mar)</ion-select-option>
+          <ion-select-option value="04">04 (Apr)</ion-select-option>
+          <ion-select-option value="05">05 (May)</ion-select-option>
+          <ion-select-option value="06">06 (Jun)</ion-select-option>
+          <ion-select-option value="07">07 (Jul)</ion-select-option>
+          <ion-select-option value="08">08 (Aug)</ion-select-option>
+          <ion-select-option value="09">09 (Sep)</ion-select-option>
+          <ion-select-option value="10">10 (Oct)</ion-select-option>
+          <ion-select-option value="11">11 (Nov)</ion-select-option>
+          <ion-select-option value="12">12 (Dec)</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Expiry Year<span style="color: red">*</span></ion-label>
+        <ion-select [(ngModel)]="expiryyear" name="expiryyear" required> 
+          <ion-select-option *ngFor="let key of timeData" value="{{key}}">{{key}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">CVV/CVN<span style="color: red">*</span></ion-label>
+        <ion-input type="text" clearInput [(ngModel)]="cvv" name="cvv" required></ion-input>
+      </ion-item>
+
+    </ng-container>
+
+        <ion-grid *ngIf="this.api_eway_token == 0 && this.pagename == 'viewquote' && this.api_restamt != payAmt">
+          <ion-row>
+            <ion-col col-12>
+              <ion-item class="paynow_check">
+              <ion-checkbox class="checkbox_pay" [(ngModel)]="isChecked" name="isChecked" color="primary" checked="true" slot="start"></ion-checkbox>
+              </ion-item>
+              <p>You agree to charge your card a day before for the remaining balance</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
+      <ion-item>
+        <ion-label style="display:flex; justify-content: center;">
+          <ion-button size="large" type="button" (click)="payNow(quoteid)">Pay Now</ion-button>
+        </ion-label>
+      </ion-item>
+       
+    </form>
+
+    <p class="chargeagree" *ngIf="this.api_eway_token !== 0">{{this.api_chargeagree}}</p>
+
+    <div *ngIf="this.pay_using_new_card === true" class="add_new_card_div">
+      <p>OR</p>
+      <a (click)="addNewCard()" >Add New Card</a>
+    </div>
+
+    <div *ngIf="this.pay_using_old_card === true" class="add_new_card_div">
+      <p>OR</p>
+      <a (click)="useOldCard()" >Use Existing Card</a>
+    </div>
+    
+
+  </ion-item-group>
+</ng-container>
+
+</ion-content>

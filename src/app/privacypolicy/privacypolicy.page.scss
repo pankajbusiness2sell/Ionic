@@ -1,0 +1,71 @@
+:host {
+    .header  {
+          .toolbar  {
+            box-shadow: 0 2px 11px 0 rgba(0,0,0,0.3);
+            padding: 19px !important;
+            .toolbar-background{
+              background: linear-gradient(to right, #2781f0 , #2cb4f6);
+            }
+              .toolbar-title {
+                font-size: 20px;
+                font-weight: 300;
+              }
+            }
+          }
+          .toolbar-title {
+            font-size: 20px;
+            font-weight: 300;
+            color: #fff;
+          }
+          .button-inner {
+            color: #fff;
+        }
+        .button-default  {
+            background: linear-gradient(to right, #2781f0 , #2cb4f6);
+            padding: 25px;
+            font-size: 16px;
+            font-weight: 400;
+        }
+        .item-divider {
+          background-color: transparent;
+          border: none;
+          padding: 0;
+          .input-wrapper{
+            .label {
+                font-size: 16px;
+                color: #2b2b2b;
+                font-weight: 500;
+                text-transform: uppercase;
+                margin: 0;
+            }
+          }
+        }
+        .item  {
+          padding: 0;
+        }
+        ion-item-group {
+          margin-bottom: 15px;
+        }
+
+        .privacy_policy {
+          padding: 8px 21px;
+
+          .sectionTitle {
+            font-size: 24px;
+            font-weight: bold;
+            color:#2781f0;
+
+          }
+          .privacy-main {
+            p{ 
+              line-height: 26px;
+              strong { 
+                font-weight:bold; 
+                color:#2781f0;
+              }
+            }
+          }
+
+        }
+    }
+    

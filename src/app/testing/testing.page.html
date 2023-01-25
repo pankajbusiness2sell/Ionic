@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Test Page By Pankaj</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="refreshPage()"><ion-icon name="reload-outline"></ion-icon></ion-button>
+        <ion-button (click)="gotoChat(0)">
+        <!-- <ion-icon slot="icon-only" name="notifications" >
+        <span><ion-badge class="badgeIconNew badgeIcon" *ngIf="notificationCount !== '0'" item-end >{{ notificationCount }}</ion-badge></span>
+        </ion-icon> -->
+        </ion-button>
+        <ion-button (click)="moveToTask()">
+          <ion-icon name="calendar-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+
+  <!-- {{civilWorks | json}} -->
+
+     <ion-card *ngFor="let datainfo of civilWorks" >
+       
+    <ion-item>
+      <ion-avatar item-start>
+        <img target="_blank" src="{{'assets/img/'+ datainfo.img }}">
+      </ion-avatar>
+      <h2>{{datainfo.title}}</h2>
+      <span>{{datainfo['date']}}</span>
+    </ion-item>
+  
+    <img src="{{'assets/img/'+ datainfo.img }}">
+  
+    <ion-card-content>
+      <p>{{datainfo['message']}}</p>
+    </ion-card-content>
+   </ion-card>
+  </ion-content>

@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Upsell Images</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <div class="btn-group">
+
+      <ion-tab-button class="camera" expand="block" slot="start" (click) = "takePhoto()">
+        <ion-icon name="images" class="camera-icon"></ion-icon><span class="icon-nme">Browse Gallery</span>
+      </ion-tab-button>
+
+      <ion-tab-button class="camera" expand="block" slot="start" (click) = "takePhotoByCamera()">
+        <ion-icon name="camera" class="camera-icon"></ion-icon> <span class="icon-nme">Camera</span>
+      </ion-tab-button>
+
+    </div>
+
+
+  <!-- Display image how should be looks like -->
+  <ion-grid>
+    <ion-row>
+
+      <ion-row *ngIf="photos; then tempImages else notmpimages"></ion-row>
+
+      <ng-template #tempImages>
+          <ion-col size="4" *ngFor="let photo of photos; let id = index;">
+              <ion-card class="block">
+                <ion-icon name="trash" class="deleteIcon" (click)="deleteTmpPhoto(id)"></ion-icon>
+                <img [src]="photo" *ngIf="photo" imageViewer (click)="openImage(photo)"/>
+              </ion-card>
+            </ion-col>
+      </ng-template>
+
+      <ng-template #notmpimages></ng-template>
+    </ion-row>
+
+    <ion-row *ngIf="showImage; then beforeImages else noBeforeImages"></ion-row>
+
+    <ng-template #beforeImages>
+        <ion-row>
+            <ion-col size="4" *ngFor="let photo of beforeImageData; let id = index; trackBy: trackPhoto">
+                <ion-card class="block">
+                    <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(photo)"></ion-icon>
+                    <img class="photo-thumb" [src]="photo.thumb_img_url" imageViewer  *ngIf="photo.thumb_img_url" [hidden]="!photo.thumb_img_url" />
+                  </ion-card>
+              </ion-col>
+        </ion-row>
+    </ng-template>
+
+    <ng-template  #noBeforeImages>
+        <ion-row class="tittle_text">
+           No Images
+        </ion-row>
+    </ng-template>
+
+  </ion-grid>
+  <!-- {{ printPhoto }} -->
+
+</ion-content>
+

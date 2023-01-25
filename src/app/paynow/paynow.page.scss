@@ -1,0 +1,123 @@
+:host {
+  .header  {
+    .toolbar  {
+      box-shadow: 0 2px 11px 0 rgba(0,0,0,0.3);
+      padding: 19px !important;
+      .toolbar-background{
+        background: linear-gradient(to right, #134c4f , #0098a0);
+      }
+      .toolbar-title {
+        font-size: 20px;
+        font-weight: 300;
+      }
+    }
+  }
+
+  .chargeagree{
+    text-align: center;
+  }
+
+  .add_new_card_div {
+    text-align: center;
+    margin-top: 20px;
+    a{
+      text-decoration: underline;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  }
+
+  .toolbar-title {
+    font-size: 20px;
+    font-weight: 300;
+    color: #fff;
+  }
+  .button-inner {
+    color: #fff;
+}
+  .leadsetting-navbar {
+    .toolbar-background {
+      border-color: transparent;
+    }
+  }
+
+
+ .alert-danger {
+    background-color: #f2dede;
+    border-color: #ebcccc;
+    color: #a94442;
+    padding: 5px 20px;
+    position: relative;
+    margin: auto;
+    display: flex;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+    justify-content: center;
+}
+.alert-success {
+  @extend .alert-danger;
+  background-color: #dff0d8;
+  border-color: #d0e9c6;
+  color: #3c763d;
+}
+.item-divider {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  .input-wrapper{
+    .label {
+        font-size: 16px;
+        color: #2b2b2b;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin: 0;
+    }
+  }
+}
+.item  {
+  padding: 0;
+}
+ion-item-group {
+  margin-bottom: 15px;
+}
+.list  {
+  margin: 0 0 10px;
+  .item {
+      padding: 5px;
+      text-align: center;
+      border-radius: 7px;
+      background-color: #e1f5fe;
+      white-space: normal;
+      border: 1px solid #134c4f;
+      .item-inner {
+        .input-wrapper {
+          .label {
+              margin: 0;
+              white-space: normal;
+              font-weight: 400;
+              text-transform: capitalize;
+              font-size: 14px;
+              line-height: 20px;
+              color: #134c4f;
+          }
+        }
+      }
+  }
+}
+.bar-buttons  {
+  .bar-button {
+    .button-inner {
+        padding: 0 4px !important;
+      }
+    }
+}
+.paynow_check {
+  width: 50px;
+  float: left;
+  .checkbox_pay {
+    margin: 0px;
+    border-bottom: inherit;
+  }
+}
+}

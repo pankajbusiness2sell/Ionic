@@ -1,0 +1,47 @@
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>All Reviews</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ng-container *ngIf="reviewData.length > 0">
+    <ion-card *ngFor="let review of reviewData">
+      <ion-card-header>
+        <span class="content-left">J#{{review.job_id}}</span>
+        <span class="content-right">
+          <ng-container *ngIf="review.overall_experience > 0">
+            <ion-icon *ngFor="let rate of review.overall_experience|numtoarray; let i = index;"  name="star"></ion-icon>
+          </ng-container>
+
+          <ng-container *ngIf="review.white_star > 0">
+            <ion-icon *ngFor="let rate of review.white_star|numtoarray; let i = index;" ios="ios-star-outline" md="md-star-outline"></ion-icon>
+          </ng-container>
+        </span>
+      </ion-card-header>
+
+      <ng-container *ngIf="review.positive_comment !== ''">
+        <ion-card-content>
+          <span class="content-left">{{review.name}}</span>
+          <span class="content-right">
+            {{review.review_date}}
+          </span>
+        </ion-card-content>
+      </ng-container>
+    </ion-card>
+  </ng-container>
+
+  <ng-container *ngIf="reviewData.length === 0">
+    <ion-card>
+      <ion-card-content>
+        No Reviews !
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+</ion-content>

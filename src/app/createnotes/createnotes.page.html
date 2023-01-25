@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Notes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button slot="icon-only" color="primary" (click)="saveNotes()">
+        <ion-icon name="paper-plane"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!-- RESPONSES -->
+  <span *ngIf="response === ''; then noResponse; else showResponse"></span>
+
+  <ng-template #showResponse>
+    <span [ngClass]="{
+      'alert-success': responseVal === 200 ? true : false,
+      'alert-danger': responseVal === 400 ? true : false
+    }">
+      {{response}}
+    </span>
+  </ng-template>
+
+  <ng-template #noResponse></ng-template>
+
+  <ion-list>
+    <ion-item-group>
+      <ion-item>
+        <ion-label position="floating">Heading</ion-label>
+        <ion-input autocapitalize="on" type="text" clearInput [(ngModel)]="heading"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Add Notes</ion-label>
+        <ion-textarea autocapitalize="on" [(ngModel)]="qnotes"></ion-textarea>
+      </ion-item>
+    </ion-item-group>
+
+    <ion-button class="btn-green" (click) ="saveNotes()" >Submit</ion-button>
+
+  </ion-list>
+
+</ion-content>

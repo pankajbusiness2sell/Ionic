@@ -1,0 +1,124 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Leads</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="refreshPage()"><ion-icon name="reload-outline"></ion-icon></ion-button>
+        <ion-button (click)="gotoChat()">
+        <ion-icon slot="icon-only" name="notifications" >
+        <span><ion-badge class="badgeIconNew badgeIcon" *ngIf="notificationCount !== '0'" item-end >{{ notificationCount }}</ion-badge></span>
+        </ion-icon>
+        </ion-button>
+        <ion-button (click)="moveToTask()">
+          <ion-icon name="calendar-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+
+  <div class="topspace10">
+    <ion-buttons>
+        <ion-button class="tab_button" [class]="leadstatusid == '1' ? 'tab_button activated' : 'tab_button'"  (click)="getLeadList('newleads')">
+          <span class="btn-text">New Leads</span>
+          <span class="lead_counter" *ngIf="newleads > 0">{{newleads}}</span>
+        </ion-button>
+        <ion-button class="tab_button" [class]="leadstatusid == '2' ? 'tab_button activated' : 'tab_button'"  (click)="getLeadList('calledleads')">
+          <span class="btn-text">Called Leads</span>
+          <span class="lead_counter" *ngIf="calledleads > 0">{{calledleads}}</span>
+        </ion-button>
+        <ion-button class="tab_button" [class]="leadstatusid == '3' ? 'tab_button activated' : 'tab_button'"  (click)="getLeadList('lostleads')">
+          <span class="btn-text">Lost Leads</span>
+          <span class="lead_counter" *ngIf="lostleads > 0">{{lostleads}}</span>
+        </ion-button>        
+    </ion-buttons>
+
+  </div>
+</ion-header>
+
+
+<ion-content padding>
+  
+  <div class="newjob_content">
+
+  <div>
+      <span *ngIf="!defaultData?.length === true; then noNewJobs; else showNewJobs"></span>
+      <ng-template #noNewJobs>
+          <ion-card>
+            <ion-card-content>
+              <ion-icon name="close-circle" class="no-jobs"></ion-icon>
+              <span class="noting-found">No Leads Found</span>
+            </ion-card-content>
+          </ion-card>
+      </ng-template>
+
+      <ng-template #showNewJobs>
+    <span *ngFor="let newJobs of defaultData">
+      <!-- {{ newJobs | json }} --> 
+      <ion-card class="dumm card">
+        <ion-card-content class="card-content">
+          <div class="listingSection">
+            <!-- {{ newJobs.jobID }} -->   
+            <div class="leftBox">
+              <div class="listingLeft">
+                <span class="jobId">L#{{ newJobs.qid }}</span>
+                <!-- <span>{{ newJobs.lead_status }}</span> -->
+                <span class="amount" *ngIf="staff_type_global !== 2">
+                  <span class="amt">$</span>
+                  <!-- {{ newJobs.amount_staff }} | {{ newJobs.amount_total }} -->
+                  {{ newJobs.amount }}
+                </span>
+                <span class="preLine dateTime">
+                  <span class="opacityLow">{{ newJobs.date | date:'dd LLL yy' }}</span>
+                  <!-- <span class="dates">{{ newJobs.reclean_time }}</span> -->
+                </span>
+              </div>
+            </div>
+
+            <div class="rightBox">
+              <div class="listingRight">
+                <strong class="title-card">{{ newJobs.name }}</strong>
+                <p class="microSpace" [hidden]="!newJobs.email"><ion-icon class="ion_mail" name="mail"></ion-icon>{{ newJobs.email }}</p>
+                <ul class="jobType">
+                  <li>{{ newJobs.ds }}</li>
+                </ul>
+                <p class="microSpace" [hidden]="!newJobs.address">
+                    <ion-icon class="ion_pin" name="pin"></ion-icon>{{ newJobs.address }}</p>
+                    <span class="mid-area">
+                <p [hidden]="!newJobs.suburb">
+                  <ion-icon class="ion_link" name="link"></ion-icon>{{ newJobs.suburb }}, {{ newJobs.postcode }}</p>
+                <div class="plus_add_main dropdown" [hidden]="!newJobs.phone">
+                  <a href="javascript:void(0)" (click)="callToCustomer(newJobs.phone, newJobs.qid)"  class="callMe">
+                      <ion-icon name="call"></ion-icon>{{ newJobs.phone }} </a>
+                </div>
+
+              </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card_footer">
+            <div class="footer_button_div">
+            <ion-buttons>
+                <!-- <ion-button (click)="createQuoteFn(newJobs.qid)"><ion-icon name="create" ios="ios-create" md="md-create"></ion-icon><span class="btn-text">Edit</span></ion-button> -->
+                <ion-button class="notes_button button" (click)="moveToNotes(newJobs.qid)"><span class="btn-text">Notes</span></ion-button>
+              </ion-buttons>
+            </div>
+            <div class="footer_select_div">
+              <ion-item>
+                  <ion-select name="lead_status" [value]="newJobs.lead_status" (ionChange)="leadStatusChange($event, newJobs.qid)">
+                    <ion-select-option *ngFor="let j of leadstatus" [value]="j.id" >{{j.name}}</ion-select-option>
+                  </ion-select>
+              </ion-item>
+            </div>
+          </div>
+
+        </ion-card-content>
+      </ion-card>
+    </span>
+  </ng-template>
+
+  </div>
+
+  </div>
+</ion-content>

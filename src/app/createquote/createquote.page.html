@@ -1,0 +1,175 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- RESPONSES -->
+  <span *ngIf="response === ''; then noResponse; else showResponse"></span>
+
+  <ng-template #showResponse>
+    <span [ngClass]="{
+      'alert-success': statusText === 'Success' ? true : false,
+      'alert-danger': statusText === 'Failure' ? true : false
+    }">
+      {{response}}
+    </span>
+  </ng-template>
+
+  <ng-template #noResponse></ng-template>
+
+  <div>
+    <ion-segment [(ngModel)]="quotetabs">
+      <ion-segment-button value="quotedetailtab">
+        Quote Detail
+      </ion-segment-button>
+      <ion-segment-button value="personaldetailtab">
+        Personal Info
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="quotetabs">
+    <ion-list *ngSwitchCase="'quotedetailtab'">
+      <ion-item-group>
+        <ion-item>          
+          <ion-label position="floating">Job Date</ion-label>
+          <ion-datetime display-format="MMM DD YYYY" min="2020" max="2025" [(ngModel)]="jobdate"></ion-datetime>
+        </ion-item>
+      
+        <!-- Dynamic Job Type -->
+        <!-- <ion-item>
+          <ion-label floating>Job Type</ion-label>
+          <ion-select [(ngModel)]="jobtype" (ionChange)="jobtypefields($event)">
+            <ion-select-option *ngFor="let k of defaultData" value="{{k.id}}">{{k.name}}</ion-select-option>
+          </ion-select>
+        </ion-item> -->
+
+        <ion-item>
+          <ion-label position="floating">Postcode</ion-label>
+          <ion-input type="number" clearInput [(ngModel)]="postcode" (keyup)="postcodelist($event)"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Suburb</ion-label>
+          <ion-select [(ngModel)]="suburb" value="{{suburb}}">
+            <ion-select-option *ngFor="let k of defaultData2" value="{{k.suburb}}">{{k.suburb}}</ion-select-option>
+          
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Job Options</ion-label>
+          <ion-select [value]="jobtype" name="jobtype" (ionChange)="jobtypefields($event)" ok-text="Okay" cancel-text="Dismiss" >
+            <ion-select-option value="0">Choose Job Type</ion-select-option>
+            <ion-select-option value="1">Cleaning</ion-select-option>
+            <ion-select-option value="2">Carpet</ion-select-option>
+            <ion-select-option value="9">Others</ion-select-option>
+          </ion-select>     
+        </ion-item>
+
+        <ion-list-header *ngIf="popupDataArr.length > 0 ">
+          <ion-label class="prev_label">Job Type</ion-label>
+        </ion-list-header>
+        <ion-item-group class="dynamic_job_type">
+          <ion-item *ngFor="let j of popupDataArr; let i = index">
+            <!-- <ion-label (click)="jobtypefields(j.jobtype)"> -->
+              <ion-button clear (click)="deleteSelectedJob(i)">
+                <span>X</span>
+              </ion-button>
+              <ion-label>
+              <span><strong>{{j.jobtypetitle}}</strong> <span class="typeamountspan">Amount : ${{j.typeamount}}</span></span>
+              <p>{{j.desc}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-item-group>
+
+        <ion-item>
+          <ion-label position="floating">White Goods</ion-label>
+          <ion-select [(ngModel)]="whitegoods" [value]="whitegoods"> 
+            <ion-select-option value="1">Yes</ion-select-option>
+            <ion-select-option value="2">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label position="floating">Parking</ion-label>
+          <ion-select [(ngModel)]="parking" [value]="parking"> 
+            <ion-select-option *ngFor="let p of getParkingList;" value="{{p.id}}">{{p.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label position="floating">Pets on Property ?</ion-label>
+          <ion-select [(ngModel)]="petsproperty" [value]="petsproperty"> 
+            <ion-select-option value="1">Yes</ion-select-option>
+            <ion-select-option value="2">No</ion-select-option>
+          </ion-select>
+        </ion-item>
+     
+        <ion-item>
+          <ion-label position="floating">Total Amount</ion-label>
+          <!-- <ion-input type="number" clearInput [(ngModel)]="amount" (focus)="calcTotal()" ></ion-input> -->
+          <ion-input type="number" value="{{amount}}" clearInput [(ngModel)]="amount" disabled ></ion-input>
+        </ion-item>
+
+        <ion-button *ngIf="showSaveBtn == true" class="btn-green" (click) ="saveQuote(1)"><ion-icon name="save-outline"></ion-icon> Save Quote</ion-button>
+        <ion-button class="btn-green next_step_btn" (click) ="switchTabs('personaldetailtab')"><ion-icon name="arrow-forward-circle-outline"></ion-icon> Personal Info</ion-button>
+        
+      </ion-item-group>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'personaldetailtab'">
+      <ion-item-group>
+        <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input autocapitalize="on" type="text" clearInput [(ngModel)]="cxname"></ion-input>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" clearInput [(ngModel)]="cxemail"></ion-input>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label position="floating">Phone</ion-label>
+          <ion-input type="tel" clearInput [(ngModel)]="cxphone"></ion-input>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label position="floating">Comment</ion-label>
+          <ion-textarea autocapitalize="on" clear-on-edit="true" [(ngModel)]="cxcomment"></ion-textarea>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label position="floating">Address</ion-label>
+          <ion-input type="text" [(ngModel)]="cxaddress" id="cxaddress" (ionChange)="updateSearchResults()"></ion-input>
+        </ion-item>
+        
+        <ion-list [hidden]="autocompleteItems.length == 0">
+          <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+            {{ item.description }}
+          </ion-item>
+        </ion-list>
+      
+        <ion-item>
+          <ion-label position="floating">Best time to contact</ion-label>
+          <!-- <ion-select [(ngModel)]="cxbesttime"> 
+            <ion-select-option *ngFor="let key of timeData" value="{{key}}">{{key}}</ion-select-option>
+          </ion-select> -->
+          <ion-input autocapitalize="on" type="text" clearInput [(ngModel)]="cxbesttime"></ion-input>
+        </ion-item>
+
+        </ion-item-group>
+        <!-- <button ion-button class="btn-green" (click) ="switchTabs('quotedetailtab')" >Go Back</button> -->
+        <ion-button *ngIf="showSaveBtn == true" class="btn-green" (click) ="saveQuote(2)"><ion-icon name="save-outline"></ion-icon>  Save Quote</ion-button>
+        <ion-button *ngIf="quoteid > 0 && isLead == true && showCreateQuoteBtn == true" class="btn-green" (click) ="convertToQuote(quoteid)" ><ion-icon name="save-outline"></ion-icon>  Create Quote</ion-button>
+        <!--<ion-button *ngIf="quoteid > 0 && showSMSEmailBtn == true" class="btn-green" (click)="getsmsdata(quoteid, cxphone)" >SMS</ion-button>
+        <ion-button *ngIf="quoteid > 0 && showSMSEmailBtn == true" class="btn-green" (click)="sendQuoteEmail(quoteid)" >Email</ion-button>-->
+    </ion-list>
+  </div>
+</ion-content>

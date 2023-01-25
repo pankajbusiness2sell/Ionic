@@ -1,0 +1,123 @@
+:host {
+  overflow:inherit;
+
+
+  .scroll-content {
+    padding: 15px 0 40px !important;
+  }
+  .header  {
+    .toolbar  {
+      box-shadow: 0 2px 11px 0 rgba(0,0,0,0.3);
+      padding: 19px !important;
+      .toolbar-background{
+        background: linear-gradient(to right, #134c4f , #0098a0);
+      }
+      .toolbar-title {
+        font-size: 20px;
+        font-weight: 300;
+      }
+    }
+  }
+  .toolbar-title {
+    font-size: 20px;
+    font-weight: 300;
+    color: #fff;
+  }
+  .button-inner {
+    color: #fff;
+}
+
+.btn-group {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 9;
+  background: #FFFFFF;
+  display: flex;
+  left: 0;
+  right: 0;
+  box-shadow: 0 6px 11px 4px rgba(0,0,0,0.5);
+  justify-content: space-around;
+   .camera {
+     padding:5px 0px;
+     .camera-icon {
+       padding: 5px;
+       color: #134c4f;
+     }
+     .icon-nme {
+       font-size: 14px;
+       text-transform: uppercase;
+       color: #134c4f;
+     }
+   }
+}
+  .grid{
+    .col {
+      .block {
+          width: 100%;
+          height: 100px;
+          border-radius: 7px;
+          overflow: hidden;
+          margin: 0;
+          box-shadow: 0px 1px 4px 0px rgba(0,0,0,0.2);
+          .icon {
+              position: absolute;
+              right: 0;
+              color: #FFF;
+              background: linear-gradient(to right, #134c4f , #0098a0);
+              width: 24px;
+              height: 24px;
+              align-items: center;
+              display: flex;
+              justify-content: center;
+              border-radius: 50%;
+              font-size: 14px;
+              top: 0;
+          }
+         img {
+              display: block;
+              width: 100%;
+              object-fit: cover;
+              height: 150px;
+          }
+      }
+    }
+  }
+
+  .button-native{
+      background: inherit;
+      box-shadow: none;
+      border: none;
+      
+  }
+  .photo-thumb {
+    height: 90px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    padding-top: 0px;
+}
+
+  .deleteIcon {
+    background: linear-gradient(to right, #134c4f , #0098a0);
+    position: absolute;
+    right: -7px;
+    width: 12px;
+    top: -8px;
+    z-index: 9;
+    color: #fff;
+    height: 12px;
+    font-size: 10px;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+
+.hydrated {
+  visibility: inherit;
+  overflow: inherit;
+}
+
+
+
+}

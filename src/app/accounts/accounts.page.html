@@ -1,0 +1,245 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Accounts</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="refreshPage()"><ion-icon name="reload-outline"></ion-icon></ion-button>
+        <ion-button (click)="gotoChat()">
+        <ion-icon slot="icon-only" name="notifications" >
+        <span><ion-badge class="badgeIconNew badgeIcon" *ngIf="notificationCount !== '0'" item-end >{{ notificationCount }}</ion-badge></span>
+        </ion-icon>
+        </ion-button>
+        <ion-button (click)="moveToTask()">
+          <ion-icon name="calendar-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div>
+        <ion-segment [(ngModel)]="full_jobs">
+          <ion-segment-button value="pending">
+            Pending
+          </ion-segment-button>
+          <ion-segment-button value="approved">
+            Approved
+          </ion-segment-button>
+          <ion-segment-button value="paid">
+            Paid
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+
+      <div [ngSwitch]="full_jobs">
+        <ion-list *ngSwitchCase="'pending'">
+            <ion-item>
+          <div class="newjob_content" *ngIf="dashboardData.if_bool">
+            <span *ngFor="let newJobResponse of dashboardData.result">
+              <!-- {{ newJobResponse.data | json }} -->
+
+              <span *ngIf="newJobResponse.data.pending === 'undefined'; then noPendingjobs; else pendingJobs"></span>
+
+              <ng-template #pendingJobs>
+                  <span *ngFor="let newJobs of newJobResponse.data.pending">
+                      <!-- {{ newJobs | json }} -->
+                      <ion-card class="dumm card">
+                        <ion-card-content class="card-content">
+                          <div class="listingSection">
+                            <!-- {{ newJobs.jobID }} -->
+                            <div class="leftBox">
+                              <div class="listingLeft newjobs">
+                                <span class="jobId">J#{{ newJobs.job_id }}</span>
+                                <span class="amount">
+                                  <span class="amt">$</span>
+                                  {{ newJobs.staffamount }}
+                                </span>
+                                <span class="preLine dateTime">
+                                  <span class="opacityLow" *ngIf="newJobs.job_date == '0000-00-00' ? '' : newJobs.job_date">{{ newJobs.job_date | date:'dd LLL yy' }}</span>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="rightBox">
+                              <div class="listingRight">
+                                <strong>{{ newJobs.quote_name }}</strong>
+
+                                <p class="microSpace" [hidden]="!newJobs.quote_address">
+                                  <ion-icon class="micro_pin" name="location-outline"></ion-icon> {{ newJobs.quote_address }}</p>
+                                 <span class="mid-area">
+                                  <p [hidden]="!newJobs.suburb">
+                                    <ion-icon name="link" class="nid_link"></ion-icon>{{ newJobs.suburb }}</p>
+                                  <div class="plus_add_main dropdown" [hidden]="!newJobs.quote_phone">
+                                    <a href="tel:{{newJobs.quote_phone}}"  class="callMe">
+                                        <ion-icon name="call"></ion-icon>{{ newJobs.quote_phone }} </a>
+                                  </div>
+                                </span>
+                                <!-- <span class="call_num">
+                                  <a href="tel:{{newJobs.quote_phone}}"></a>
+                                </span> -->
+                              </div>
+                            </div>
+                          </div>
+                        </ion-card-content>
+                      </ion-card>
+                    </span>
+              </ng-template>
+
+              <ng-template #noPendingjobs>
+                <ion-card class="dumm card no-jobs">
+                    <ion-card-content class="card-content">
+                      <ion-icon name="close-circle-outline"></ion-icon>
+                      <span class="noting-found">No Jobs Found</span></ion-card-content>
+                </ion-card>
+              </ng-template>
+            </span>
+          </div>
+          </ion-item>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'approved'">
+            <ion-item class="no-jobs">
+              <ion-icon name="close-circle-outline"></ion-icon>
+              <span class="noting-found">No Jobs Found</span>
+          <div class="newjob_content" *ngIf="dashboardData.if_bool">
+            <span *ngFor="let newJobResponse of dashboardData.result">
+              <!-- {{ newJobResponse.data | json }} -->
+              <span *ngIf="newJobResponse.data.approved === 'undefined'; then noApprovedJobs; else approvedJobs"></span>
+
+              <ng-template #approvedJobs>
+                  <span *ngFor="let newJobs of newJobResponse.data.approved">
+                      <!-- {{ newJobs | json }} -->
+                      <ion-card class="dumm card">
+                        <ion-card-content class="card-content">
+                          <div class="listingSection">
+                            <!-- {{ newJobs.jobID }} -->
+                            <div class="leftBox">
+                              <div class="listingLeft newjobs">
+                                <span class="jobId">J#{{ newJobs.job_id }}</span>
+                                <span class="amount">
+                                  <span class="amt">$</span>
+                                  {{ newJobs.staffamount }}
+                                </span>
+                                <span class="preLine dateTime">
+                                  <span class="opacityLow" *ngIf="newJobs.job_date == '0000-00-00' ? '' : newJobs.job_date">{{ newJobs.job_date | date:'dd LLL yy' }}</span>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="rightBox">
+                              <div class="listingRight">
+                                <strong>{{ newJobs.quote_name }}</strong>
+
+                                <p class="microSpace" [hidden]="!newJobs.quote_address">
+                                    <ion-icon class="micro_pin" name="location-outline"></ion-icon> {{ newJobs.quote_address }}</p>
+                              <span class="mid-area">
+                                <p [hidden]="!newJobs.suburb">
+                                  <ion-icon name="link" class="nid_link"></ion-icon>{{ newJobs.suburb }}</p>
+                                <div class="plus_add_main dropdown" [hidden]="!newJobs.quote_phone">
+                                  <a href="tel:{{newJobs.quote_phone}}"  class="callMe">
+                                      <ion-icon name="call"></ion-icon>{{ newJobs.quote_phone }} </a>
+                                </div>
+                              </span>
+                                <!-- <span class="call_num">
+                                  <a href="tel:{{newJobs.quote_phone}}"></a>
+                                </span> -->
+                              </div>
+                            </div>
+                          </div>
+                        </ion-card-content>
+                      </ion-card>
+                    </span>
+              </ng-template>
+              <ng-template #noApprovedJobs>
+                <ion-card class="dumm card no-jobs">
+                    <ion-card-content class="card-content">
+                      <ion-icon name="close-circle-outline"></ion-icon>
+                      <span class="noting-found">No Jobs Found</span></ion-card-content>
+                  </ion-card>
+              </ng-template>
+            </span>
+          </div>
+          </ion-item>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'paid'">
+            <ion-item>
+          <div class="newjob_content" *ngIf="dashboardData.if_bool">
+            <span *ngFor="let newJobResponse of dashboardData.result">
+              <!-- {{ newJobResponse.data | json }} -->
+              <span *ngIf="newJobResponse.data.paid === 'undefined'; then nopaidJobs; else paidJobs"></span>
+
+              <ng-template #paidJobs>
+                  <span *ngFor="let newJobs of newJobResponse.data.paid">
+                      <!-- {{ newJobs | json }} -->
+                      <ion-card class="dumm card">
+                        <ion-card-content class="card-content">
+                          <div class="listingSection">
+                            <!-- {{ newJobs.jobID }} -->
+                            <div class="leftBox">
+                              <div class="listingLeft newjobs">
+                                <span class="jobId">J#{{ newJobs.job_id }}</span>
+                                <span class="amount">
+                                  <span class="amt">$</span>
+                                  {{ newJobs.staffamount }}
+                                </span>
+                                <span class="preLine dateTime">
+                                  <span class="opacityLow" *ngIf="newJobs.job_date == '0000-00-00' ? '' : newJobs.job_date">{{ newJobs.job_date | date:'dd LLL yy' }}</span>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="rightBox">
+                              <div class="listingRight">
+                                <strong>{{ newJobs.quote_name }}</strong>
+
+                                <p class="microSpace" [hidden]="!newJobs.quote_address">
+                                    <ion-icon  name="location-outline"></ion-icon>{{ newJobs.quote_address }}</p>
+                               <span class="mid-area">
+                                <p [hidden]="!newJobs.suburb">
+                                  <ion-icon name="link"></ion-icon>{{ newJobs.suburb }}</p>
+                                <div class="plus_add_main dropdown" [hidden]="!newJobs.quote_phone">
+                                  <a href="tel:{{newJobs.quote_phone}}"  class="callMe">
+                                      <ion-icon name="call"></ion-icon>{{ newJobs.quote_phone }} </a>
+                                </div>
+                              </span>
+                                <!-- <span class="call_num">
+                                  <a href="tel:{{newJobs.quote_phone}}"></a>
+                                </span> -->
+                              </div>
+                            </div>
+                          </div>
+                        </ion-card-content>
+                      </ion-card>
+                    </span>
+              </ng-template>
+
+              
+              <ng-template #nopaidJobs>
+                <ion-card class="dumm card">
+                  <ion-card-content class="card-content">
+                    <ion-icon name="close-circle-outline" class="no-jobs"></ion-icon>
+                    <span class="noting-found">No Jobs Found</span>
+                  </ion-card-content>
+                </ion-card>
+              </ng-template>
+              
+
+              
+              
+              <!-- <ng-template #nopaidJobs>
+                <ion-card>
+                  <ion-card-content><ion-icon ios="ios-close-circle-outline" class="no-jobs" md="md-close-circle"></ion-icon>
+                    <span class="noting-found">No Jobs Found</span><ion-icon ios="ios-close-circle-outline" class="no-jobs" md="md-close-circle"></ion-icon>
+                    <span class="noting-found">No Jobs Found</span></ion-card-content>
+                </ion-card>
+              </ng-template> -->
+            </span>
+          </div>
+          </ion-item>
+        </ion-list>
+
+      </div>
+</ion-content>

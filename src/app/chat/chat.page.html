@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Chat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-infinite-scroll (ionInfinite)="scrolled()"
+    threshold="10px"
+    position="top">
+    <ion-infinite-scroll-content loadingText="Loading more chats..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+<!-- <p *ngIf="nomorechatdata" class="ion-title" style="text-align: center">No More Data...</p> -->
+
+<div class="message-wrap">
+
+    <span *ngIf="dashboardData.if_bool">
+
+      <span *ngFor="let chat of dashboardData.result">
+
+        <!-- {{chat | json}} -->
+        <div *ngFor="let chatInner of chat.data">
+
+          <div *ngFor="let chatText of chatInner.chat"
+          class="message"
+          [class.left]="chatText.chat_type === 'admin'"
+          [class.right]="chatText.chat_type === 'staff'"
+          >
+
+       <!-- <img class="user-img" [src]="msg.userAvatar" alt="" src=""> -->
+       <!-- <ion-spinner name="dots" *ngIf="msg.status === 'pending'"></ion-spinner> -->
+       <div class="msg-detail">
+         <div class="msg-info" *ngIf="chatText.chat_type === 'admin'">
+           <p>Admin&nbsp;&nbsp;&nbsp;{{ chatText.chat_exact_time}}</p>
+           <!-- <p>Admin&nbsp;&nbsp;&nbsp;{{ chatText.chat_exact_time }}</p> -->
+  
+         </div>
+
+         <div class="msg-info" *ngIf="chatText.chat_type === 'staff'">
+            <p>Me&nbsp;&nbsp;&nbsp; {{ chatText.chat_exact_time}}</p>
+            <!-- <p>Me&nbsp;&nbsp;&nbsp; {{ chatText.chat_exact_time }}</p> -->
+          </div>
+         <div class="msg-content">
+           <span class="triangle"></span>
+           <p class="line-breaker ">{{ chatText.message }}</p>
+         </div>
+       </div>
+     </div>
+     </div>
+      </span>
+    </span>
+  </div>
+  <ion-label id="myLabel">&nbsp;</ion-label>
+
+
+
+
+</ion-content>
+
+<ion-footer no-border>
+  <div class="input-wrap">
+    
+    <textarea [(ngModel)]="chat_input" placeholder="Write your message..."  >
+    </textarea>
+    <ion-button fill="clear" slot="icon-only" item-right (click)="sendMsg(chat_input)">
+      <ion-icon class="msg-send" name="paper-plane-outline"></ion-icon>
+    </ion-button>
+  </div>
+</ion-footer>

@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+
+    <!-- <div class="top-icons">
+      <span class="push-icon" (click)="addNotes()">
+        <ion-icon name="add-circle"></ion-icon>
+      </span>
+    </div> -->
+    <ion-buttons slot="primary">
+      <ion-button (click)="addNotes()">
+        <ion-icon name="add-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="view_notes_content">
+    <span>
+      <span *ngIf="defaultData === 'undefined' || defaultData == ''; then noNotes; else showNotes"></span>
+
+      <ng-template #showNotes>
+          <span *ngFor="let nts of defaultData">
+            <ion-card>
+              <ion-card-content class="icon_view_list">
+                    <!-- xx - {{newJobs | json}} -->
+                  
+
+                    <div class="listingSection">
+                      <!-- {{ newJobs.jobID }} -->   
+                      <div class="leftBox">
+                        <div class="listingLeft">
+                          <!-- <span class="jobId">Q#{{ nts.quote_id }}</span> -->
+                          <span class="medbold">{{ nts.staff_name }}</span>
+                          <span class="medbold">{{ nts.date }}</span>
+                        </div>
+                      </div>
+    
+                      <div class="rightBox">
+                        <div class="listingRight">
+                          <strong class="title-card">{{ nts.heading }}</strong>
+                          <ul class="jobType">
+                            <li>{{ nts.comment }}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                </ion-card-content>
+            </ion-card>
+          </span>
+      </ng-template>
+      <ng-template #noNotes>
+        Notes Not Found
+      </ng-template>
+
+    </span>
+  </div>
+</ion-content>

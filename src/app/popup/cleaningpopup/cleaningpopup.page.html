@@ -1,0 +1,171 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ jobLabel }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button slot="icon-only" color="primary" (click)="askToSaveOrClose()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+ 
+
+<ion-content>
+  
+  <ion-item>
+    <ion-label>Manual Amount</ion-label>
+    <ion-toggle color="energized" [(ngModel)]="toManual" (ngModelChange)="changeStatus(toManual)"></ion-toggle>
+  </ion-item>
+
+  <!-- Start - Job Type Fields -->
+  <ion-grid *ngIf="jobtype==1">
+    <ion-row>
+      <ion-col>
+        <div>
+          <ion-item class="disabled" *ngIf="jobtype==1" >
+            <ion-label position="floating">Bed</ion-label>
+            <ion-input type="number" clearInput [(ngModel)]="bed"></ion-input>
+            </ion-item>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <ion-item class="disabled" *ngIf=" jobtype == 1 " >
+            <ion-label position="floating">Bath</ion-label>
+            <ion-input type="number" clearInput [(ngModel)]="bath"></ion-input>
+            </ion-item>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <ion-item class="disabled" *ngIf="jobtype==1" >
+            <ion-label position="floating">Study</ion-label>
+            <ion-input type="number" clearInput [(ngModel)]="study"></ion-input>
+            </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="jobtype==1">
+    <ion-row>
+      <ion-col>
+        <div>
+          <ion-item class="disabled" *ngIf="jobtype==1" >
+            <ion-label position="floating">Toilet</ion-label>
+            <ion-input type="number" clearInput [(ngModel)]="toilet"></ion-input>
+            </ion-item>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <ion-item class="disabled" *ngIf="jobtype==1" >
+            <ion-label position="floating" *ngIf="jobtype==1">Living Area</ion-label>
+            <ion-input type="number" clearInput [(ngModel)]="living"></ion-input>
+            </ion-item>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="jobtype==2">
+    <ion-row>
+      <ion-col>
+        <div>
+          <ion-item class="disabled" *ngIf="jobtype==2" >
+            <ion-label position="floating">Bed</ion-label>
+            <ion-input type="number" clearInput [(ngModel)]="bed"></ion-input>
+            </ion-item>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <ion-item class="disabled" *ngIf="jobtype==2" >
+            <ion-label position="floating">Stairs</ion-label>
+            <ion-input type="number" clearInput [(ngModel)]="stairs"></ion-input>
+          </ion-item>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <ion-item class="disabled" *ngIf="jobtype==2" >
+            <ion-label position="floating" *ngIf="jobtype==2">Living Area & Dinning</ion-label>
+            <ion-input type="number" clearInput [(ngModel)]="living"></ion-input>
+            </ion-item>
+        </div>
+      </ion-col>
+      
+    </ion-row>
+  </ion-grid>          
+            
+          
+            
+
+            <ion-grid *ngIf="jobtype==1">
+              <ion-row>
+                <ion-col>
+                  <div>
+                    <ion-item class="disabled" *ngIf="jobtype==1" >
+                      <ion-label position="floating">Furnished</ion-label>
+                      <ion-select [(ngModel)]="furnished"> 
+                        <ion-select-option value="Yes">Yes</ion-select-option>
+                        <ion-select-option value="No">No</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </div>
+                </ion-col>
+                <ion-col>
+                  <div>
+                    <ion-item class="disabled" *ngIf="jobtype==1" >
+                      <ion-label position="floating">House Type</ion-label>
+                      <ion-select [(ngModel)]="housetype"> 
+                        <ion-select-option value="Unit">Unit</ion-select-option>
+                        <ion-select-option value="House">House</ion-select-option>
+                        <ion-select-option value="Two Storey">Two Storey</ion-select-option>
+                        <ion-select-option value="Multi Storey">Multi Storey</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </div>
+                </ion-col>
+                <ion-col>
+                  <div>
+                    <ion-item class="disabled" *ngIf="jobtype==1" >
+                      <ion-label position="floating">Blinds</ion-label>
+                      <ion-select [(ngModel)]="blinds"> 
+                        <ion-select-option value="No Blinds">No Blinds</ion-select-option>
+                        <ion-select-option value="Vertical">Vertical</ion-select-option>
+                        <ion-select-option value="Venetians">Venetians</ion-select-option>
+                        <ion-select-option value="Rollers">Rollers</ion-select-option>
+                        <ion-select-option value="Shutters">Shutters</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+                        
+          
+            
+
+            <ion-item class="disabled" *ngIf="jobtype==9">
+              <ion-label position="floating">Description</ion-label>
+              <ion-input type="text" clearInput [(ngModel)]="typedesc"></ion-input>
+            </ion-item>
+
+            <ion-item class="disabled">
+              <ion-label position="floating">Amount</ion-label>
+
+              <ion-input *ngIf="toManual" type="text" clearInput [(ngModel)]="typeamount"></ion-input>
+              <ion-input *ngIf="!toManual" type="text" clearInput [(ngModel)]="typeamount" disabled></ion-input>
+            </ion-item>
+            <!-- End - Job Type Fields (Type = 1) -->   
+                
+    <!-- <button *ngIf="toManual" ion-button class="btn-green" (click) ="savepopup()" >Save Price</button>
+    <button *ngIf="!toManual" ion-button class="btn-green" (click) ="calcAmount(jobtype,bed,bath,study,toilet,living,furnished,housetype,blinds,stairs)" >Get Price</button> -->
+    
+    <ion-button *ngIf="!toManual"  class="btn-green" (click) ="calcAmount(jobtype,bed,bath,study,toilet,living,furnished,housetype,blinds,stairs)" >Get Price</ion-button>
+    <ion-button class="btn-green" (click) ="askToSaveOrClose()" >Close</ion-button>
+</ion-content>

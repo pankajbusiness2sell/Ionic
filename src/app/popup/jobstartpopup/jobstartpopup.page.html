@@ -1,0 +1,50 @@
+
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-title>Check Job Details</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-radio-group name="forRooms" [(ngModel)]="forRooms">
+    <ion-list-header>
+      Number of Rooms are Correct
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Yes</ion-label>
+      <ion-radio checked="true" value="1" checked ></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>No</ion-label>
+      <ion-radio value="0" checked ></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+  <ion-radio-group name="forProperty" [(ngModel)]="forProperty">
+    <ion-list-header>
+      Is the property Heavily Soiled
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>Yes</ion-label>
+      <ion-radio checked="true" value="1" checked ></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>No</ion-label>
+      <ion-radio value="0" checked ></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+
+  <div class="row footer_div">
+      <ion-button (click)="acceptDetailBeforeJobStart()">Accept</ion-button>
+      <ion-button (click)="onDismissPopover()">Close</ion-button>
+  </div>
+
+
+  </ion-content>

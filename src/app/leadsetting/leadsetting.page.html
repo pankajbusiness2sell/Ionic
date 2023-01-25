@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+      <ion-title>Lead Setting</ion-title>
+    <ion-buttons slot="end">
+        <ion-button color="primary" (click)="saveLeadSetting(maxleadcnt, typeoflead, leadradius, leaddays, noofjobsaday)">
+          <ion-icon name="paper-plane-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <!-- RESPONSES -->
+  <span *ngIf="response === ''; then noResponse; else showResponse"></span>
+
+  <ng-template #showResponse>
+    <span [ngClass]="{
+      'alert-success': responseVal === 200 ? true : false,
+      'alert-danger': responseVal === 400 ? true : false
+    }">
+      {{response}}
+    </span>
+  </ng-template>
+
+  <ng-template #noResponse></ng-template>
+
+  <ion-item-group>
+    
+    <ion-item>
+        <ion-label floating>Maximum Leads Per Day</ion-label>
+        <!-- <ion-input type="text" clearInput [(ngModel)]="maxleadcnt"></ion-input> -->
+        <ion-select [(ngModel)]="maxleadcnt" placeholder="Select" okText="Okay" cancelText="Dismiss"> 
+          <ion-select-option value="0">0</ion-select-option>
+          <ion-select-option value="1">1</ion-select-option>
+          <ion-select-option value="2">2</ion-select-option>
+          <ion-select-option value="3">3</ion-select-option>
+          <ion-select-option value="4">4</ion-select-option>
+          <ion-select-option value="5">5</ion-select-option>
+        </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Type of Leads</ion-label>
+      <ion-select [(ngModel)]="typeoflead" placeholder="Select" okText="Okay" cancelText="Dismiss"> 
+        <ion-select-option value="a">BBC Unique Leads</ion-select-option>
+        <!-- <ion-select-option value="b">Third Party Unique Leads</ion-select-option>
+        <ion-select-option value="c">Shared Leads</ion-select-option> -->
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Leads Radius</ion-label>
+      <ion-badge>{{leadradius}}</ion-badge>
+      <ion-range min="10" max="100" step="10" pin="true" [(ngModel)]="leadradius" color="primary">
+        <ion-label range-left>10</ion-label>
+        <ion-label range-right>100</ion-label>
+      </ion-range>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Lead Days</ion-label>
+      <ion-select [(ngModel)]="leaddays" multiple="true" placeholder="Select" okText="Okay" cancelText="Dismiss">
+        <ion-select-option value="Monday">Monday</ion-select-option>
+        <ion-select-option value="Tuesday">Tuesday</ion-select-option>
+        <ion-select-option value="Wednesday">Wednesday</ion-select-option>
+        <ion-select-option value="Thursday">Thursday</ion-select-option>
+        <ion-select-option value="Friday">Friday</ion-select-option>
+        <ion-select-option value="Saturday">Saturday</ion-select-option>
+        <ion-select-option value="Sunday">Sunday</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Number of Jobs a Day</ion-label>
+      <ion-select [(ngModel)]="noofjobsaday" placeholder="Select" okText="Okay" cancelText="Dismiss">
+        <ion-select-option value="0">0</ion-select-option> 
+        <ion-select-option value="1">1</ion-select-option>
+        <ion-select-option value="2">2</ion-select-option>
+        <ion-select-option value="3">3</ion-select-option>
+        <ion-select-option value="4">4</ion-select-option>
+        <ion-select-option value="5">5</ion-select-option>
+      </ion-select>
+    </ion-item>
+</ion-item-group>
+
+<ion-button color="primary" (click)="saveLeadSetting(maxleadcnt, typeoflead, leadradius, leaddays, noofjobsaday)"> Update </ion-button>
+
+</ion-content>
+

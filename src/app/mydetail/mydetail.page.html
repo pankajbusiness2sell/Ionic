@@ -1,0 +1,114 @@
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Detail</ion-title>
+
+    <!-- <ion-buttons slot="primary">
+      <ion-button (click)="uploadStaffDocByType('uploadStaffDocByType')">
+      <ion-icon slot="icon-only" name="folder" ></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-item-group>
+    <ion-item-divider color="light" class="per_details"> Personal Details</ion-item-divider>
+    <ion-item>
+      <ion-label position="floating">Full Name</ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="fname"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Phone</ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="phone"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Company Name</ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="company_name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Abn</ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="abn"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-datetime *ngIf="!insauranceEcpired" type="button" displayFormat="MMM DD YYYY" [(ngModel)]="event.month" (ionChange)="selectDate()"
+        min="2017" max="2100"></ion-datetime>
+      <ion-label *ngIf="!insauranceEcpired">Insurance Exp. {{ insaurance }}</ion-label>
+      <ion-label color="danger" *ngIf="insauranceEcpired">Insurance is expired. Please upload.</ion-label>
+    </ion-item>
+  </ion-item-group>
+
+  <ion-item-group>
+    <ion-item-divider color="light" class="per_details">Account Details</ion-item-divider>
+    <ion-item>
+      <ion-label position="floating">BSB</ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="bsb"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Account Number</ion-label>
+      <ion-input type="text" clearInput [(ngModel)]="acc"></ion-input>
+    </ion-item>
+  </ion-item-group>
+
+  <ion-item-group>
+    <ion-item-divider color="light" class="per_details">Update Password</ion-item-divider>
+    <ion-item>
+      <ion-label position="floating"></ion-label>
+      <ion-input type="password" clearInput placeholder="*******" [(ngModel)]="new_pass"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating"></ion-label>
+      <ion-input type="password" clearInput placeholder="*******" [(ngModel)]="conf_pass"></ion-input>
+    </ion-item>
+  </ion-item-group>
+
+  <ion-item-group>
+    <ion-item-divider color="light" class="per_details">Others</ion-item-divider>
+    <ion-item>
+      <ion-label>Normal Rates </ion-label>
+      <ion-toggle color="energized" [(ngModel)]="normalRates" (ngModelChange)="changeStatus('normalRates', normalRates)"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>OTO </ion-label>
+      <ion-toggle color="danger" [(ngModel)]="otoCheck" (ngModelChange)="changeStatus('otoCheck', otoCheck)"></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Commercial </ion-label>
+      <ion-toggle color="energized" [(ngModel)]="commercial" (ngModelChange)="changeStatus('commercial', commercial)"></ion-toggle>
+    </ion-item>
+  </ion-item-group>
+
+  <span class="av-list" *ngIf="dd_check.length > 0">
+        <ion-item-group>
+            <!-- <strong>Documents Lists</strong> -->
+            <ion-item-divider color="light" class="per_details">Documents Lists</ion-item-divider>
+            <ion-item *ngFor="let docs of dd_check">
+              <ion-checkbox *ngIf="docs.value" checked></ion-checkbox>
+              <ion-label>{{docs.name}}</ion-label>
+            </ion-item>
+          </ion-item-group>
+        </span>
+        <div class="footer_div">
+          <ion-button color="primary" (click)="updateInfo()" class="update_inf">Update Info</ion-button>
+            <!-- <ion-button color="primary">Upload Document</ion-button> -->
+  <!-- <ion-button color="primary" (click)="uploadStaffDocByType('uploadStaffDocByType')">Upload Document</ion-button> -->
+        </div>
+
+</ion-content>

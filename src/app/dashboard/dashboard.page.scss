@@ -1,0 +1,139 @@
+:host {
+.bar-header {
+    --box-shadow: 0 2px 11px 0 rgba(0,0,0,0.3);
+    --background-color: linear-gradient(to right, #134c4f , #0098a0);
+    width: 100%;
+    height: 72px;
+    position: relative;
+    h1 {
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0;
+    padding: 24px;
+    --color: #FFF;
+    }
+}
+.badgeIcon {
+    --background-color: #2a2c43;
+}
+ion-badge.badgeIcon {
+    position: absolute;
+    right: 14px;
+    border-radius: 50px;
+    padding: 5px 8px;
+    top: 1px;
+}
+.icon {
+    --background-color: #FFF;
+    --background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 10px;
+    width: 85px;
+    height: 85px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    margin: auto;
+    box-shadow: 1px 2px 8px rgba(0,0,0,0.2);
+    font-size: 3.8rem;
+}
+ion-content ion-icon {
+    width: 65px;
+    height: 65px;
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    margin: auto;
+    box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.2);
+    color: #134c4f;
+    --color: #134c4f;
+    --background-color: linear-gradient(to right, #134c4f , #0098a0);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #134c4f !important;
+}
+    ion-row {
+    height: auto;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+ion-header {
+    --box-shadow: 0px 1px 7px 1px rgba(0,0,0,0.1);
+}
+    .dashboardTitle{
+    text-align: center;
+    }
+
+    // HERE< WILL USE SCSS FOR SHOWING INSTA NOTIFICATION
+    span.insta-notification {
+    --background-color: #9B1D20;
+    --border: 1px solid #9B1D20;
+    width: 94%;
+    display: inline-block;
+    padding: 6px 3px;
+    --box-shadow: 0 2px 11px 0 rgba(0, 0, 0, 0.3);
+    margin: 10px;
+    font-size: 9px;
+    border-radius: 4px;
+
+    span.insta-notification-inner{
+        --color: white;
+        font-size: 13px;
+        .anchor-text {
+        --color: white;
+        }
+    }
+    }
+
+    .icons-basic-page {
+    ion-icon {
+        font-size: 50px;
+    }
+
+    ion-row {
+        height: auto;
+        flex-wrap: wrap;
+    }
+
+    ion-col {
+        flex: 0 0 33.333%;
+        max-width: 33.333%;
+        text-align: center;
+        padding: 10px 5px;
+        p {
+        --color: #525252;
+        font-size: 14px;
+        margin: 10px 0 0;
+        }
+    }
+    .badge  {
+        position: absolute;
+        right: 0px;
+        left: 75px;
+        margin: auto;
+        border-radius: 50%;
+        height: 28px;
+        line-height: 16px;
+        top: -1px;
+        width: 28px;
+        padding: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        --background: linear-gradient(to right, #134c4f , #0098a0);
+        --color: #FFF;
+        border: 1px solid;
+    }
+    }
+    .title {
+    text-align: center;
+    }
+}

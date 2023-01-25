@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Dashboard</ion-title>
+    <!--<div class="top-icons">
+      <span class="push-icon">
+        <ion-icon name="notifications" (click)="gotoChat()">
+          <span><ion-badge class="badgeIconNew badgeIcon" *ngIf="notificationCount !== '0'" item-end  >{{ notificationCount }}</ion-badge></span>
+        </ion-icon>
+      </span>
+      <span class="push-icon icon_calender" (click)="moveToTask()">
+        <ion-icon name="calendar" ios="ios-calendar" md="md-calendar"></ion-icon>
+      </span>
+    </div>-->
+
+    <ion-buttons slot="primary">
+    <ion-button (click)="refreshPage()"><ion-icon name="reload-outline"></ion-icon></ion-button>
+      <ion-button (click)="gotoChat()">
+      <ion-icon slot="icon-only" name="notifications" >
+      <span><ion-badge class="badgeIconNew badgeIcon" *ngIf="notificationCount !== '0'" item-end >{{ notificationCount }}</ion-badge></span>
+      </ion-icon>
+      </ion-button>
+      <ion-button (click)="moveToTask()">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content text-center class="icons-basic-page">
+  <!-- <span class="insta-notification" *ngIf="app_version">
+    <span class="insta-notification-inner">NEW VERSION IS RELEASED.</span>
+    <span class="insta-notification-inner">PLEASE UPDATE YOUR APP FROM <a class="anchor-text" href="https://play.google.com/store/apps/details?id=com.netvision.betterbondcleaningnew&hl=en">APP STORE</a>.</span>
+  </span> -->
+
+  <!--<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+    pullingIcon="chevron-down-circle-outline"
+    pullingText="Pull to refresh"
+    refreshingSpinner="circles"
+    refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>-->
+
+  <div *ngFor="let data of dashBoardData.result">
+    <ion-row [hidden]="staff_type_global !== 1">            
+      <ion-col  *ngIf="bbc_leads == 2 && better_franchisee == 2"><div (click) = "leads()"><ion-badge class="badgeIcon" item-end *ngIf="data.data.leadsCount == '0' ? false : true">{{ data.data.leadsCount }}</ion-badge><ion-icon name="clipboard-outline"></ion-icon><p>Leads</p></div></ion-col>
+      <ion-col *ngIf="bbc_leads == 2 && better_franchisee == 2"><div (click) = "createQuoteFn()"><ion-icon name="create-outline"></ion-icon><p>Create Quote</p></div></ion-col>
+      <ion-col *ngIf="bbc_leads == 2 && better_franchisee == 2"><div (click) = "viewQuoteFn()"><ion-badge class="badgeIcon" item-end *ngIf="data.data.quotesCount == '0' ? false : true">{{ data.data.quotesCount }}</ion-badge><ion-icon name="list-outline"></ion-icon><p>View Quote</p></div></ion-col>
+      <ion-col><div (click) = "getNewJobsData()"><ion-badge class="badgeIcon" item-end *ngIf="data.data.new_jobs === 0 ? false : true">{{ data.data.new_jobs }}</ion-badge><span class="iconicIcon icon icon-e"></span><p>Prepaid Jobs</p></div></ion-col>
+      <ion-col><div (click) = "getActiveJobByRequest()"><ion-badge class="badgeIcon" item-end *ngIf="data.data.active_jobs === 0 ? false : true">{{ data.data.active_jobs }}</ion-badge><span class="iconicIcon icon icon-d"></span><p>Active Jobs</p></div></ion-col>
+      <ion-col><div (click) = "getRecleanJobByRequest()"><ion-badge class="badgeIcon" item-end *ngIf="data.data.reclean_jobs === 0 ? false : true">{{ data.data.reclean_jobs }}</ion-badge><span class="iconicIcon icon icon-f"></span><p>Re-Clean</p></div></ion-col>
+      <ion-col><div (click) = "getCompleteJobByRequest()"><span class="iconicIcon icon icon-h"></span><p>Completed</p></div></ion-col>
+      <ion-col><div (click) = "_callReviews()"><ion-icon name="newspaper-outline"></ion-icon><p>Reviews</p></div></ion-col>
+      <ion-col><div (click) = "getAllJobByRequest()"><span class="iconicIcon icon icon-c"></span><p>All jobs</p></div></ion-col>
+      <ion-col><div (click) = "roaster()"><span class="iconicIcon icon icon-calendar"></span><p>Availability</p></div></ion-col>
+      <ion-col><div (click) = "openAccount()"><span class="iconicIcon icon icon-group"></span><p>Accounts</p></div></ion-col>
+      <ion-col><div (click) = "testPage()"><span class="iconicIcon icon icon-group"></span><p>Test</p></div></ion-col>
+      <ion-col><div (click) = "myDetail()"><span class="iconicIcon icon icon-notepad"></span><p>My Detail</p></div></ion-col>
+      <ion-col *ngIf="allowSubStaff == 1 ? false : true" ><div (click) = "subStaff()"><span class="iconicIcon icon icon-exchange"></span><p>Sub Staff</p></div></ion-col>
+      <ion-col *ngIf="bbc_leads == 2 && better_franchisee == 2"><div (click) = "leadSetting()"><ion-icon name="cog-outline"></ion-icon><p>Lead Setting</p></div></ion-col>
+      <ion-col (click)="logout()"><div><span class="iconicIcon icon icon-logout-sign"></span><p>Logout</p></div></ion-col>      
+    </ion-row>
+
+    <ion-row [hidden]="staff_type_global !== 2">
+        <ion-col><div (click) = "getNewJobsData()"><span><ion-badge class="badgeIcon" item-end *ngIf="data.data.new_jobs === 0 ? false : true">{{ data.data.new_jobs }}</ion-badge></span><span class="iconicIcon icon icon-e"></span><p>New Jobs</p></div></ion-col>
+        <ion-col><div (click) = "getActiveJobByRequest()"><ion-badge class="badgeIcon" item-end *ngIf="data.data.active_jobs === 0 ? false : true">{{ data.data.active_jobs }}</ion-badge><span class="iconicIcon icon icon-d"></span><p>Active Jobs</p></div></ion-col>
+        <ion-col><div (click) = "getRecleanJobByRequest()"><ion-badge class="badgeIcon" item-end *ngIf="data.data.reclean_jobs === 0 ? false : true">{{ data.data.reclean_jobs }}</ion-badge><span class="iconicIcon icon icon-f"></span><p>Re-Clean</p></div></ion-col>
+        <ion-col><div (click) = "getCompleteJobByRequest()"><span class="iconicIcon icon icon-h"></span><p>Completed</p></div></ion-col>
+        <ion-col (click)="logout()"><div><span class="iconicIcon icon icon-logout-sign"></span><p>Logout</p></div></ion-col>
+      </ion-row>
+  </div>
+</ion-content>

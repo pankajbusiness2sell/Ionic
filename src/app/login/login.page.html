@@ -1,0 +1,35 @@
+<ion-header></ion-header>
+<ion-content padding class="bg-img">
+  <div class="container-login">
+    <span class="topicon"></span>
+  <span class="login-header">
+    <p class="login-text">Welcome !</p>
+    <span class="login-disc">Sign in to continue</span>      
+  </span>   
+    <ion-list>
+        <div *ngIf="afterLoginError">
+          <span *ngFor="let erroDetail of afterLoginError">
+            <span class="alert-danger">{{ erroDetail.msg }}</span>
+          </span>
+        </div>
+      <span class="input-area">
+      <ion-item>
+        <ion-icon name="call-outline"></ion-icon>
+          <ion-input type="number" max-length="10" required="true" clearInput placeholder="Mobile" #mobile></ion-input>
+      </ion-item>
+    </span>
+
+    <span class="input-area">
+      <ion-item>
+        <ion-icon name="lock-closed-outline" align-self-center></ion-icon>
+        <ion-input type="password" placeholder="Password" required="true" #password></ion-input>
+      </ion-item>
+    </span>
+
+      <ion-button class="main-button" expand="block" color="primary" (click)="login()">
+        {{this.loginButtenText}}
+      </ion-button>
+
+    </ion-list>
+  </div>
+</ion-content>

@@ -1,0 +1,33 @@
+<ion-header >     
+  <ion-toolbar color="primary">
+    <ion-title>Re-Clean-DateTime Change</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+   
+  
+<ion-content padding>  
+      
+    <ion-item>
+      <ion-label floating>Job Date</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" min="2021" max="2025" [(ngModel)]="recleandate" name="recleandate" ></ion-datetime>
+    </ion-item>
+                
+    <ion-item>             
+      <ion-label>Please Choose Job Time</ion-label>
+        <ion-select  [(ngModel)]="jobtime"  name="jobtime">  
+          <ion-select-option value="0">Select Time</ion-select-option>    
+          <ion-select-option *ngFor="let dtime of timeData" value="{{dtime}}">{{dtime}}</ion-select-option>  
+        </ion-select>  
+    </ion-item>         
+     
+    <ion-item>        
+      <ion-label>Arrange With</ion-label>  
+        <ion-select  [(ngModel)]="arrangewithTime"  name="arrangewithTime">  
+          <ion-select-option value="0">Arrange With</ion-select-option>    
+          <ion-select-option *ngFor="let awith of arrangewith" value="{{awith.id}}">{{awith.name}}</ion-select-option>  
+        </ion-select>  
+    </ion-item> 
+    <br/>
+    <div class="footer_btn_div"><ion-button color="primary" (click)="savereCleandateTime(reCleanDetails)">Update Info</ion-button></div>
+</ion-content>   

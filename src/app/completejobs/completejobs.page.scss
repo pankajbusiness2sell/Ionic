@@ -1,0 +1,274 @@
+:host {
+    .header  {
+      .toolbar  {
+        box-shadow: 0 2px 11px 0 rgba(0,0,0,0.3);
+        padding: 19px !important;
+        .toolbar-background{
+          background: linear-gradient(to right, #134c4f , #0098a0);
+        }
+        .toolbar-title {
+          font-size: 20px;
+          font-weight: 300;
+        }
+      }
+    }
+    .card {
+      position: relative;
+      margin: 15px 10px 0px 15px;
+      border-radius: 7px;
+      width: calc(100% - 25px);
+      box-shadow: 0 3px 11px rgba(0, 0, 0, 0.1);
+      .buttonSection {
+          position: absolute;
+          bottom: 0;
+          z-index: 999999;
+          width: 100%;
+          background: #FFF;
+          box-shadow: 0 8px 13px 5px rgba(0,0,0,0.3);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 5px 8px;
+          .btn , .button-ios{
+              //height: auto;
+              width: auto;
+              //padding: 10px 18px;
+              --border-radius: 500px;
+              font-size: 14px;
+              font-weight: 500;
+              --box-shadow: 0 2px 7px 0 rgba(0,0,0,0.2);
+              //cursor: pointer;
+              text-transform: uppercase;
+          }
+          .accpted {
+            color: #FFFFFF;
+            background: linear-gradient(to right, #134c4f , #0098a0);
+          }
+          .reassign-btn {
+            background: #6d6a6a;
+            color: #FFFFFF;
+          }
+      }
+      .item-cover {
+        display: none;
+      }
+      .card-content {
+        padding: 0;
+        .leftBox {
+          .amount {
+            font-size: 23px;
+            font-weight: bold;
+            .amt {
+              font-size: 14px;
+              margin-bottom: 0;
+              position: relative;
+              bottom: 3px;
+              font-weight: 300;
+            }
+            .status {
+                font-size: 14px;
+                position: relative;
+                bottom: 1px;
+                font-weight: 300;
+                opacity: 0.8;
+            }
+        }
+          .jobId {
+            background: #134c4f;
+            padding: 7.5px 15px;
+            border-radius: 500px;
+            font-weight: 500;
+          }
+            width: 100%;
+            position: absolute;
+            top: 0;
+            --background: none;
+            background: linear-gradient(to right, #134c4f , #0098a0);
+            color: #FFF;
+            left: 0;
+            right: 0;
+            padding:5px 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.2);
+          .listingLeft {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          .dateTime {
+              font-size: 14px;
+              position: absolute;
+              right: 9px;
+              top: 55px;
+              color: #757575;
+              font-weight: 400;
+              .dates {
+                font-weight: 600;
+              }
+          }
+        }
+  
+        .card_footer {
+          position: absolute;
+          bottom: 0;
+          z-index: 999999;
+          width: 100%;
+          background: #FFF;
+          box-shadow: 0 8px 13px 5px rgba(0,0,0,0.3);
+          .bar-buttons {
+              display: flex;
+              justify-content: space-around;
+          button {
+            width: 100% !important;
+            padding: 0;
+            height: 50px;
+            font-size: 18px;
+            background:transparent;
+            .icon  {
+              background: #FFF;
+              background: linear-gradient(to right, #134c4f , #0098a0);
+              -webkit-background-clip: text;
+              background-clip: text;
+              -webkit-text-fill-color: transparent;
+              text-align: center;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin: auto;
+              font-size: 24px;
+              padding-bottom: 2px;
+            }
+            .button-inner {
+              flex-direction: column;
+              .btn-text {
+                font-size: 16px;
+                font-weight: 500;
+                color: #333;
+                opacity: 0.8;
+              }
+            }
+          }
+          }
+       }
+        .rightBox{
+  
+        .mid-area {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: none;
+          padding:5px 0 15px;
+          .plus_add_main  {
+            text-align: right;
+            width: 50%;
+            font-size: 16px;
+            color: #333;
+          }
+          p {
+            width: 50%;
+            font-weight: 500;
+            margin: 0;
+            color: #333;
+            .nid_link {
+              padding-right: 5px;
+              position: relative;
+              top: 4px;
+              font-size: 18px;
+              color: #134c4f;
+            }
+          }
+          .icon  {
+            padding-right: 7px;
+          }
+        }
+        .substaff {
+          display: flex;
+          .label {
+            text-transform: capitalize;
+            opacity: 0.8;
+            font-weight: 400;
+          }
+          .select-text {
+            font-size: 16px;
+            font-weight: 500;
+          }
+        }
+          width: 100%;
+          padding: 54px 10px 5px;
+            .title-card {
+              font-size: 18px;
+              color: #333;
+              text-transform: capitalize;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              width: 60%;
+              display: block;
+          }
+          .jobType {
+            padding: 0;
+            margin:5px 0 0 0;
+            list-style: none;
+            li {
+                margin-bottom: 5px;
+                font-size: 14px;
+                color: #545454;
+                font-weight: 400;
+            }
+          }
+          .microSpace {
+            margin-bottom: 7px;
+            .icon  {
+              padding-right: 10px;
+              position: relative;
+              top: 1px;
+            }
+            .micro_pin {
+              position: relative;
+              top: 4px;
+              font-size: 17px;
+              font-weight: 600;
+              color: #134c4f;
+            }
+          }
+          .plus_add_main  {
+            a {
+              color: #134c4f;
+              font-weight: 600;
+              text-decoration: none;
+              background: #FFF;
+              padding: 8px 12px;
+              border-radius: 6px;
+              border-color: #134c4f;
+              border: 1px solid;
+            }
+          }
+        }
+      }
+    }
+    .searchbar-input {
+      box-shadow: none !important;
+      border: 1px solid #e6e6e6;
+      border-radius: 200px !important;
+      height: 3.8rem !important;
+    }
+    .searchbar-md {
+      .searchbar-search-icon {
+        left: 16px;
+        top: 9px !important;
+      }
+    }
+    .searchbar-ios {
+      .searchbar-search-icon {
+        left: 12px !important;
+        top: 12px !important;
+      }
+    }
+  }
+  .btn-text {
+    text-transform: capitalize;
+  }
+  

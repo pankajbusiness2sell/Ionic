@@ -1,0 +1,242 @@
+:host {
+  .view_notes_content {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 20px;
+}
+    .segment {
+      border: 1px solid #134c4f;
+      border-radius: 3px;
+      .segment-button , .segment-activated {
+          border-bottom: none;
+          height: 3.2rem;
+          font-size: 1.2rem;
+          line-height: 3.2rem;
+          border-width: 0px;
+          color: #fff;
+          background-color: #134c4f;
+      }
+      .segment-button:nth-child(2) {
+          border: 1px solid #134c4f;
+          border-width: 0 1px;
+      }
+    }
+    .header  {
+      .toolbar  {
+        box-shadow: 0 2px 11px 0 rgba(0,0,0,0.3);
+        padding: 19px !important;
+        .toolbar-background{
+          background: linear-gradient(to right, #134c4f , #0098a0);
+        }
+        .toolbar-title {
+          font-size: 20px;
+          font-weight: 300;
+        }
+      }
+    }
+    .card {
+      position: relative;
+      margin: 0 auto 15px;
+      border-radius: 7px;
+      width: calc(100% - 0px);
+      box-shadow: 0 3px 11px rgba(0, 0, 0, 0.1);
+      .buttonSection {
+          position: absolute;
+          bottom: 0;
+          z-index: 999999;
+          width: 100%;
+          background: #FFF;
+          box-shadow: 0 8px 13px 5px rgba(0,0,0,0.3);
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 5px 8px;
+          .btn , .button-ios{
+              height: auto;
+              width: auto;
+              padding: 10px 18px;
+              border-radius: 500px;
+              font-size: 14px;
+              font-weight: 500;
+              box-shadow: 0 2px 7px 0 rgba(0,0,0,0.2);
+              cursor: pointer;
+              text-transform: uppercase;
+          }
+          
+      }
+      .item-cover {
+        display: none;
+      }
+      .card-content {
+        padding: 0;
+        .leftBox {
+          .amount {
+            font-size: 23px;
+            font-weight: bold;
+            .amt {
+              font-size: 14px;
+              margin-bottom: 0;
+              position: relative;
+              bottom: 3px;
+              font-weight: 300;
+            }
+            .status {
+                font-size: 14px;
+                position: relative;
+                bottom: 1px;
+                font-weight: 300;
+                opacity: 0.8;
+            }
+        }
+          .jobId {
+            background: #00979f;
+            padding: 7.5px 15px;
+            border-radius: 500px;
+            font-weight: 500;
+          }
+            width: 100%;
+            position: absolute;
+            top: 0;
+            background: linear-gradient(to right, #134c4f , #0098a0);
+            color: #FFF;
+            left: 0;
+            right: 0;
+            padding:5px 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0px 0px 4px 2px rgba(0,0,0,0.2);
+          .listingLeft {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          .dateTime {
+              font-size: 14px;
+              position: absolute;
+              right: 9px;
+              top: 55px;
+              color: #757575;
+              font-weight: 400;
+              .dates {
+                font-weight: 600;
+              }
+          }
+        }
+  
+        .rightBox{
+  
+        .mid-area {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid #efefef;
+          padding:5px 0 15px;
+          .plus_add_main  {
+            text-align: right;
+            width: 50%;
+            font-size: 16px;
+            color: #333;
+          }
+          p {
+            width: 50%;
+            font-weight: 500;
+            margin: 0;
+            color: #333;
+          }
+          .icon  {
+            padding-right: 7px;
+          }
+        }
+        .substaff {
+          display: flex;
+          .label {
+            text-transform: capitalize;
+            opacity: 0.8;
+            font-weight: 400;
+          }
+          .select-text {
+            font-size: 16px;
+            font-weight: 500;
+          }
+        }
+          width: 100%;
+          padding: 44px 10px 8px;
+            .title-card {
+              font-size: 16px;
+              color: #333;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              display: block;
+          }
+          .jobType {
+            padding: 0;
+            margin:5px 0 0 0;
+            list-style: none;
+            li {
+                margin-bottom: 5px;
+                font-size: 14px;
+                color: #545454;
+                font-weight: 400;
+            }
+          }
+          .microSpace {
+            margin-bottom: 7px;
+            .icon  {
+              padding-right: 10px;
+              position: relative;
+              top: 1px;
+            }
+          }
+          .plus_add_main  {
+            a {
+              color: #134c4f;
+              font-weight: 600;
+              text-decoration: none;
+              background: #FFF;
+              padding: 8px 12px;
+              border-radius: 6px;
+              border-color: #134c4f;
+              border: 1px solid;
+            }
+          }
+        }
+      }
+    }
+  }
+  .card  {
+    .deleteIcon.icon {
+        -webkit-text-fill-color: #FFF !important;
+    }
+  }
+
+  .icon_view_list {
+    padding: 0px;
+    .listingSection {
+      .leftBox {
+        background: linear-gradient(to right, #134c4f , #0098a0);
+        padding: 5px 10px;
+        color: #fff;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        .listingLeft {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+      .rightBox {
+        .listingRight {
+          padding: 10px;
+          .jobType {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+          }
+        }
+      }
+    }
+  }
+  
+  

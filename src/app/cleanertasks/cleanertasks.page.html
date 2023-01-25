@@ -1,0 +1,96 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tasks</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="gotoChat()">
+      <ion-icon slot="icon-only" name="notifications" >
+      <span><ion-badge class="badgeIconNew badgeIcon" *ngIf="notificationCount !== '0'" item-end >{{ notificationCount }}</ion-badge></span>
+      </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="wrapper">
+    <div class="header">
+      <ion-icon name="arrow-back" (click)="nextMonth(prev)"></ion-icon>
+      <ion-icon name="arrow-forward" (click)="nextMonth(next)"></ion-icon>
+    <p>{{ heading }}</p>
+    </div><!-- end header -->
+      <div class="calendar-body">
+        <div class="row weekdays">
+          <div class="col-xs-1"><p>Su</p></div><!-- end col-xs-1 -->
+          <div class="col-xs-1"><p>Mo</p></div><!-- end col-xs-1 -->
+          <div class="col-xs-1"><p>Tu</p></div><!-- end col-xs-1 -->
+          <div class="col-xs-1"><p>We</p></div><!-- end col-xs-1 -->
+          <div class="col-xs-1"><p>Th</p></div><!-- end col-xs-1 -->
+          <div class="col-xs-1"><p>Fr</p></div><!-- end col-xs-1 -->
+          <div class="col-xs-1"><p>Sa</p></div><!-- end col-xs-1 -->
+        </div><!-- end row -->
+
+        <div  *ngFor="let dateText of dates.dates">
+
+          <!-- {{dateText | json}} -->
+          <span class="row dates" *ngFor="let dt of dateText">
+              <div class="col-xs-1" *ngFor="let ddate of dt" >
+                 <span *ngIf="ddate.number !== ''" class="my-staff" (click)="checkJobsOnDate(ddate)" [class.inactive-staff]="ddate.avail === 0 && ddate.number !== ''">
+                   {{ddate.number}}
+                   <span class="active-container">
+                   <span *ngIf="ddate.reclean_job === 1" class="reclean"></span>
+                   <span *ngIf="ddate.active_job === 1" class="job-active"></span>
+                  </span>
+                  </span>
+
+                  <span *ngIf="ddate.number === ''" class="my-staff" >
+                   {{ddate.number}}
+                   <span class="active-container">
+                   <span *ngIf="ddate.reclean_job === 1" class="reclean"></span>
+                   <span *ngIf="ddate.active_job === 1" class="job-active"></span>
+                  </span>
+                  </span>
+                </div>
+          </span>
+
+        </div><!-- end row -->
+
+
+        <div class="line"></div>
+
+        <span class="reclean recleannew">
+          <span class="dot rej">Reclean Jobs</span>
+          <span class="dot actj">Active Jobs</span>
+          <span class="dot naj">Not Avail.</span>
+          <span class="dot avlj">Avail.</span>
+        </span>
+        <!-- <div class="current-date">Monday, January 26</div> -->
+      </div><!-- end calendar-body -->
+    </div><!-- end wrapper -->
+
+
+        <div>
+          <span *ngFor="let newJobResponse of dashboardData2.result">
+          <ion-grid *ngFor="let newJobs of newJobResponse.data.all_active_jobs">
+            <div class="job_list" (click)="showActiveJobDetail(newJobs,0)">
+            <ion-row class="jl_top_row">
+                <ion-col class="jl_left">J#{{ newJobs.jobID }}</ion-col>
+                <ion-col class="jl_right">{{ newJobs.job_date | date:'dd LLL yy' }} {{ newJobs.job_time }}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="jl_desc">
+                <span *ngFor="let jobTypeData of newJobs.jobType">
+                  {{ jobTypeData.description }}
+                </span>
+            </ion-col>
+          </ion-row>
+          </div>
+        </ion-grid>
+      </span>      
+        </div>
+</ion-content>

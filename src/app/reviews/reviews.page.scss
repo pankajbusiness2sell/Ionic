@@ -1,0 +1,41 @@
+:host {
+    .scroll-content {
+      padding: 15px 0 40px !important;
+    }
+    .header  {
+      .toolbar  {
+        box-shadow: 0 2px 11px 0 rgba(0,0,0,0.3);
+        padding: 19px !important;
+        .toolbar-background{
+          background: linear-gradient(to right, #2781f0 , #2cb4f6);
+        }
+        .toolbar-title {
+          font-size: 20px;
+          font-weight: 300;
+        }
+      }
+    }
+    .toolbar-title {
+      font-size: 20px;
+      font-weight: 300;
+      color: #fff;
+    }
+  
+    .content-right {
+      float: right;
+    }
+  
+    .content-left {
+      font-size: 18px;
+      font-weight: 500;
+      color: #707575;
+      margin-bottom: 5px;
+      display: inline-block;
+    }
+  
+    .card-header-md + .card-content-md{
+      overflow: hidden;
+  }
+  
+  }
+  

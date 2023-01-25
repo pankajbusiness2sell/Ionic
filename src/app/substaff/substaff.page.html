@@ -1,0 +1,75 @@
+<!--
+  Generated template for the SubstaffPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sub Staff List</ion-title>
+
+    <!-- <div class="top-icons">
+      <span class="push-icon" (click)="gotoAddNewSubStaff(1)">
+        <ion-icon name="person-add-outline"></ion-icon>
+      </span>
+    </div> -->
+
+    <ion-buttons slot="primary">
+        <ion-button (click)="gotoAddNewSubStaff(1)">
+          <ion-icon slot="icon-only" name="person-add-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <!-- <button ion-button (click)="gotoAddNewSubStaff()">Add Sub Staff</button> -->
+  <!-- {{dashboardData | json}} -->
+  <div class="newjob_content">
+    <span *ngFor="let newJobResponse of dashboardData.result">
+      <span *ngIf="newJobResponse.data.sub_staff_list === 'undefined'; then noSubStaff; else showSubStaff"></span>
+
+      <ng-template #showSubStaff>
+          <span *ngFor="let newJobs of newJobResponse.data.sub_staff_list">
+            <ion-card>
+              <ion-card-content
+                [ngClass]="{
+                  'subStaff-disable': newJobs.status === '0' ? true : false,
+                  'subStaff-enable': newJobs.status === '1' ? true : false
+                }"
+                >
+                    <!-- xx - {{newJobs | json}} -->
+                  <div class="listingSection">
+                    <div class="rightBox">
+                      <div class="listingRight">
+                        <strong>{{ newJobs.name }}</strong>
+                        <p><ion-icon name="mail-outline" class="listing_mail"></ion-icon></p><span>{{ newJobs.email }}</span>
+                        <p><ion-icon name="call-outline" class="listing_call" ></ion-icon></p><span>{{ newJobs.mobile }}</span>
+                        <p><ion-icon name="lock-closed-outline" class="listing_lock"></ion-icon></p><span>{{ newJobs.password }}</span>
+                        <span *ngIf="newJobs.status === '1'; then active; else deactive"></span>
+                          <!-- {{newJobs.status}} -->
+                          <ng-template #active>
+                              <p><span class="listing_active"><ion-icon name="checkmark-circle-outline" class="active_icon"></ion-icon> Active</span></p>
+                          </ng-template>
+                          <ng-template #deactive>
+                              <p><span class="listing_deactie"><ion-icon name="md-close-circle" color="iconicIcon" class="active_icon"></ion-icon>Deactive</span></p>
+                          </ng-template>
+                        <span class="edit-icon" (click)="editSubstaff(newJobs)">Edit</span>
+                      </div>
+                    </div>
+                  </div>
+                </ion-card-content>
+            </ion-card>
+          </span>
+      </ng-template>
+      <ng-template #noSubStaff>
+        No Sub Staff
+      </ng-template>
+
+    </span>
+  </div>
+
+</ion-content>
+

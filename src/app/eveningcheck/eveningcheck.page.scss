@@ -1,0 +1,23 @@
+:host{
+    .textdiv{
+        padding: 25px;
+        line-height: 20px;
+        font-weight: normal;
+        text-align: center;
+    }
+
+    ion-text{
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    span{
+        display: inline-block;
+        margin-bottom: 15px;
+    }
+
+    ion-title{
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+}

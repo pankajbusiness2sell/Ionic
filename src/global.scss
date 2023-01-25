@@ -1,0 +1,267 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+
+.sidebar {
+
+    .toolbar {
+      min-height: 55px;
+      padding: 40px 15px;
+      .toolbar-background {
+        --background: linear-gradient(to right, #134c4f , #0098a0);
+        --border-color: #fff;
+          //background-color: linear-gradient(to right, #134c4f , #0098a0);
+        --color: #FFF;
+    }
+  
+    }
+    .toolbar-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .icon  {
+        font-size:9rem;
+        --color: #FFF;
+      }
+      .title  {
+        position: relative;
+        padding: 0;
+        .toolbar-title {
+          --color: #FFF;
+          font-weight: 200;
+          font-size: 20px;
+          margin-top: 10px;
+          .username {
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  .toolbar:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 3px;
+      z-index: 9999;
+      border-radius: 0;
+      right: 0;
+      visibility: visible;
+      --background-color: #dadada;
+  }
+    .scroll-content {
+  
+      padding-bottom: 0px !important;
+      margin-top: 0px;
+  
+      .list  {
+        margin: 0;
+        padding: 210px 0 0 20px;
+        .item {
+          padding-left: 0;
+          border: none;
+          --color: #666666;
+          margin-bottom: 10px;
+          ion-avatar {
+            min-width: 40px;
+            min-height: 40px;
+            margin: 0 !important;
+            padding:5px;
+            font-size: 18px;
+            .icon {
+              font-size: 27px;
+            }
+        }
+          .item-inner {
+              --border-bottom: 1px solid #dedede;
+              margin: 0;
+              padding: 0;
+              border: none;
+              h2 {
+                margin: 0;
+                font-size: 16px;
+                font-weight:400;
+            }
+          }
+        }
+        .item:last-child {
+          position: absolute;
+          bottom: 0;
+        }
+      }
+    }
+  }
+  
+  .toast-container {
+    .toast-message {
+      font-size: 1.5rem;
+      // color: #fff;
+      padding: 19px 16px 17px;
+      --color: #a94442;
+      --background-color: #f2dede;
+      --border-color: #ebccd1;
+    }
+  }
+  
+  //#### HEADER ICONS
+  .top-icons {
+    position: absolute;
+      top: 50%;
+      right: 3%;
+      transform: translate(20px, -25px);
+  }
+
+    .top-icons .push-icon ion-icon{
+      position: relative;
+      z-index: 11;
+      --background-color: transparent;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      top: 6px;
+      -webkit-text-fill-color: #fff;
+      font-size: 31px;
+      box-shadow: none;
+      right:15px;
+      cursor: pointer;
+      padding: 5px 8px;
+    }
+
+    .top-icons .push-icon ion-icon span {
+      position: absolute;
+      top: -6px;
+      right: -5px;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      --color: #fff;
+
+    }
+  
+  span.push-icon.icon_call {
+    position: absolute;
+    right: 90px;
+  }
+  
+  span.push-icon.icon_calender {
+    right: 45px;
+    position: absolute;
+  }
+  
+  .badge   {
+    --background-color: #ec5d5d;
+    padding: 4px 7px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 3px;
+    position: relative;
+    right: 4px;
+    border-radius: 50%;
+  }
+  .header {
+    .top-icons {
+      ion-icon {
+        padding: 8px;
+        justify-content: center;
+        align-items: center;
+        top:6px;
+          .badgeIconNew {
+            top: 5px;
+            right: 5px;
+        }
+      }
+    }
+  
+  }
+  
+.icon {
+    --color: #134c4f;
+    --background-color: linear-gradient(to right, #134c4f , #0098a0);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #134c4f !important;
+  }
+  .header  {
+    .icon {
+      --color: #FFF;
+      --background-color: linear-gradient(to right, #134c4f , #0098a0);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: #FFF !important;
+    }
+  }
+  .segment-ios {
+    .segment-button {
+        --border-color: transparent;
+        --color: #134c4f;
+      }
+  }
+
+[aria-checked=true].sc-ion-alert-md .alert-radio-inner.sc-ion-alert-md {
+    background: #000;
+}
+
+[aria-checked=true].sc-ion-alert-md .alert-checkbox-icon.sc-ion-alert-md {
+   background: #000;
+}
+
+.newjob_content {
+  .close-icon {
+    padding-left: 0px;
+    font-size: 70px;
+    position: relative;
+    top: 20px;
+    display: flex;
+    text-align: center;
+    width: 100%;
+    color: #134c4f;
+  }
+  .noting-found {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    font-size: 24px;
+    padding: 25px;
+  }
+  .button-inner{
+    display: block;
+  }
+
+  .newjob_content {
+    width: 94%;
+    margin: 16px auto;
+  }
+
+}

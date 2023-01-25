@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Signature</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+<!-- <signature-pad [options]="signaturePadOptions"  id="signatureCanvas" ></signature-pad> -->
+
+
+<ion-grid>
+  <ion-row>
+    <ion-col col-4>
+<ion-button expand="full" color="danger" (click)="drawCancel()">Cancel</ion-button>
+    </ion-col>
+    <ion-col col-4>
+<ion-button expand="full" color="light" (click)="drawClear()">Clear</ion-button>
+    </ion-col>
+    <ion-col col-4>
+<ion-button expand="full" color="secondary" (click)="drawComplete()">Agreed</ion-button>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>

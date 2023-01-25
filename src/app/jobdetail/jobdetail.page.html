@@ -1,0 +1,466 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Details</ion-title>
+    <!-- <div class="top-icons">
+      <span class="push-icon">
+        <ion-icon name="notifications" (click)="gotoChat()">
+          <span *ngIf="notificationCount > 0" ><ion-badge class="badgeIconNew badgeIcon" item-end  >{{ notificationCount }}</ion-badge></span>
+        </ion-icon>
+      </span>
+      <span class="push-icon" (click)="callToAdmin()">
+        <ion-icon name="call"></ion-icon>
+      </span>
+    </div> -->
+    <ion-buttons slot="primary">
+      <ion-button (click)="gotoChat()">
+      <ion-icon slot="icon-only" name="notifications" >
+      <span><ion-badge class="badgeIconNew badgeIcon" *ngIf="notificationCount !== '0'" item-end >{{ notificationCount }}</ion-badge></span>
+      </ion-icon>
+      </ion-button>
+      <ion-button (click)="callToAdmin()">
+      <ion-icon slot="icon-only" name="call" ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+    <div class="newjob_content" *ngIf="jobDetailData.if_bool">
+        <span *ngFor="let detailJobResponse of jobDetailData.result">
+          <!-- {{ detailJobResponse.data | json }} -->
+          <span *ngIf="detailJobResponse.data.all_active_jobs === 'undefined'; then noDetail; else showdetail"></span>
+
+          <ng-template #noDetail>
+            <ion-card>
+              <ion-card-content>
+                  {{ detailJobResponse.msg }}
+              </ion-card-content>
+            </ion-card>
+          </ng-template>
+          <ng-template #showdetail >
+              <span *ngFor="let detail of detailJobResponse.data.all_active_jobs;">
+                  <!-- {{ detail | json }} -->
+                  <!-- <span *ngIf="this.navParams.get('action') !== 1"> -->
+                  <span *ngIf="action !== 1">
+                    <ion-list>
+                      <ion-list-header class="tittle_text">
+                        Job Details
+                      </ion-list-header>
+                      <ion-item><label class="content-left">Job Id </label><span class="content-right">J#{{ detail.jobID }}</span></ion-item>
+                      <ion-item> <label>Date </label> <span class="content-right">{{ detail.job_date | date:'dd LLL yyyy' }}</span></ion-item>
+                      <ion-item *ngIf="detail.removaldetails.length === 0">Start Time
+                        <span class="content-right ctx" [ngClass]="{'high-light': detail.job_time !== '8:00 AM'}">
+                          {{ detail.job_time }}
+                        </span>
+                      </ion-item>
+                      <ion-item *ngIf="detail.removaldetails.length > 0">Start Time
+                        <span class="content-right">
+                            <ul class="jobType">
+                              <li>
+                                {{ detail.removaldetails[0].travel_time }}
+                              </li>
+                            </ul>
+                        </span>
+                      </ion-item>
+
+                      
+
+                      <span *ngIf="staff_type_global !== 2">
+                          <ion-item>You Get <span class="content-right">${{ detail.amount_staff }}</span></ion-item>
+                          <!-- <ion-item>Total Amount <span class="content-right">${{ detail.amount_total }}</span></ion-item> -->
+                          <ion-item *ngIf="detail.cleaning_type === 2">Status <span class="content-right">{{ detail.checkPaid }}</span></ion-item>
+                      </span>
+
+                      <!-- <ng-container *ngIf="detail.cleaning_type === 2">
+                      <div *ngIf="page === 'active'">
+                        <ion-list radio-group [(ngModel)]="relationship" (ionChange)="chooseUpSell(detail.jobID)">
+                          <ion-list-header>
+                            Your Job Share
+                          </ion-list-header>
+                          <span *ngIf="staff_type_global !== 2">
+                            <span *ngFor="let jobTypeData of detail.jobType">
+                              <ion-item>{{jobTypeData.job_type}} <span class="content-right">{{jobTypeData.amount_staff_data}}</span></ion-item>
+                            </span>
+                        </span>
+                        </ion-list>
+                      </div>
+                    </ng-container> -->
+
+                      <ion-item>Job Details
+                        <span class="content-right">
+                            <ul class="jobType">
+                              <li *ngFor="let jobTypeData of detail.jobType">
+                                {{ jobTypeData.description }}
+                              </li>
+                              <!-- <li>
+                                TYPE - {{detail.cleaning_type}}
+                              </li> -->
+                            </ul>
+                        </span>
+                      </ion-item>
+                      <ion-item>Job Start Time
+                        <span  *ngIf="detail.startTime === 'Not Started'; then nostartDateWill; else startDateWill"></span>
+                        <ng-template #startDateWill> <span class="content-right">{{ startTime }}</span></ng-template>
+                        <ng-template #nostartDateWill><span class="content-right">{{ startTime }}</span></ng-template>
+                      </ion-item>
+
+                      <ion-item>Job Finish Time
+                          <span  *ngIf="detail.finishTime === 'Not Finished'; then noEndDateWill; else endDateWill"></span>
+                          <ng-template #endDateWill> <span class="content-right">{{ finishTime }}</span></ng-template>
+                          <ng-template #noEndDateWill><span class="content-right">{{ finishTime }}</span></ng-template>
+                        </ion-item>
+
+                        <!-- IF REMOVAL DETAIL IS AVAILABLE WITH FROM & TO -->
+                        <ng-container *ngIf="detail.removaldetails.length > 0">
+                          <ion-list>
+                            <ion-list-header class="tittle_text">
+                              Pickup Details
+                            </ion-list-header>
+
+                            <ion-item>Pickup Address
+                              <span class="content-right">
+                                  <ul class="jobType">
+                                    <li>
+                                      {{ detail.removaldetails[0].moving_from }}
+                                    </li>
+                                  </ul>
+                              </span>
+                            </ion-item>
+
+                            <ion-item>Lift
+                              <span class="content-right">
+                                  <ul class="jobType">
+                                    <li>
+                                      {{ detail.removaldetails[0].is_lift_from }}
+                                    </li>
+                                  </ul>
+                              </span>
+                            </ion-item>
+
+                            <ion-item>Level
+                              <span class="content-right">
+                                  <ul class="jobType">
+                                    <li>
+                                      {{ detail.removaldetails[0].is_flour_from }}
+                                    </li>
+                                  </ul>
+                              </span>
+                            </ion-item>
+
+                            <ion-item>House type
+                              <span class="content-right">
+                                  <ul class="jobType">
+                                    <li>
+                                      {{ detail.removaldetails[0].house_type_from }}
+                                    </li>
+                                  </ul>
+                              </span>
+                            </ion-item>
+
+                            <ion-item>Distance To Door
+                              <span class="content-right">
+                                  <ul class="jobType">
+                                    <li>
+                                      {{ detail.removaldetails[0].door_distance_from }}
+                                    </li>
+                                  </ul>
+                              </span>
+                            </ion-item>
+                          </ion-list>
+                        </ng-container>
+
+                        <ng-container *ngIf="detail.removaldetails.length > 0">
+                          <!-- TO RELATED TO REMOVALS -->
+                          <ion-list>
+                            <ion-list-header class="tittle_text">
+                              Dropoff Details
+                            </ion-list-header>
+                            <ion-item>Dropoff Address
+                              <span class="content-right">
+                                  <ul class="jobType">
+                                    <li>
+                                      {{ detail.removaldetails[0].moving_to }}
+                                    </li>
+                                  </ul>
+                              </span>
+                            </ion-item>
+
+                            <ion-item>Lift
+                              <span class="content-right">
+                                  <ul class="jobType">
+                                    <li>
+                                      {{ detail.removaldetails[0].is_lift_to }}
+                                    </li>
+                                  </ul>
+                              </span>
+                            </ion-item>
+
+                            <ion-item>Level
+                              <span class="content-right">
+                                  <ul class="jobType">
+                                    <li>
+                                      {{ detail.removaldetails[0].is_flour_to }}
+                                    </li>
+                                  </ul>
+                              </span>
+                            </ion-item>
+
+                            <ion-item>House Type
+                              <span class="content-right">
+                                  <ul class="jobType">
+                                    <li>
+                                      {{ detail.removaldetails[0].house_type_to }}
+                                    </li>
+                                  </ul>
+                              </span>
+                            </ion-item>
+
+                            <ion-item>Distance To Door
+                              <span class="content-right">
+                                  <ul class="jobType">
+                                    <li>
+                                      {{ detail.removaldetails[0].door_distance_to }}
+                                    </li>
+                                  </ul>
+                              </span>
+                            </ion-item>
+                          </ion-list>
+                        </ng-container>
+
+                    </ion-list>
+                    
+                    <ng-container *ngIf="detail.cleaning_type == 2">
+                      <div *ngIf="page == 'active'">
+                        <!-- <ion-list [(ngModel)]="relationship" (ionChange)="chooseUpSell(detail.jobID)">
+                          <ion-radio-group>
+                          <ion-list-header class="tittle_text">
+                            UpSell
+                          </ion-list-header>
+
+                          <ion-item>
+                            <ion-label>Agreed</ion-label>
+                            <ion-radio checked="true" value="1" checked ></ion-radio>
+                          </ion-item>
+
+                          <ion-item>
+                            <ion-label>Denied</ion-label>
+                            <ion-radio value="2" checked ></ion-radio>
+                          </ion-item>
+                        </ion-radio-group>
+                        </ion-list> -->
+
+                        <ion-list>
+                          <ion-radio-group [value]="detail.upsell" allow-empty-selection="false" name="relationship" (ionChange)="chooseUpSell(detail.jobID, $event)" #radioGroup>
+                            <ion-list-header>
+                              <ion-label>UpSell</ion-label>
+                            </ion-list-header>
+                      
+                            <ion-item *ngFor="let item of radio_list">
+                              <ion-label>{{item.text}}</ion-label>
+                              <ion-radio slot="end" name="{{item.name}}" value="{{item.value}}" color="{{item.color}}" disabled="{{item.disabled}}"></ion-radio>
+                            </ion-item>
+                      
+                          </ion-radio-group>
+                        </ion-list>
+
+                      </div>
+                    </ng-container>
+
+                    
+
+                    <ion-list>
+                      <ion-list-header class="tittle_text">
+                        Client Details
+                      </ion-list-header>
+                      <ion-item>Name <span class="content-right">{{ detail.clientDetail.name }}</span></ion-item>
+                      <ion-item>Phone <span class="content-right" (click)="callTo(detail.clientDetail.phone, detail)"><ion-icon name="call"></ion-icon>{{ detail.clientDetail.phone }}</span></ion-item>
+                      <ion-item>Address <span class="content-right">{{ detail.clientDetail.address }}</span></ion-item>
+                    </ion-list>
+
+
+                    <ng-container *ngIf="detail.realagentdetails.length > 0">
+                      
+                      <ion-list>
+                        <ion-list-header class="tittle_text">
+                          RealEstate Details
+                        </ion-list-header>
+                        <ion-item>Agency Name
+                          <span class="content-right">
+                              <ul class="jobType">
+                                <li *ngIf="detail.realagentdetails[0].agency_name !== null">
+                                  {{ detail.realagentdetails[0].agency_name }}
+                                </li>
+                                <li *ngIf="detail.realagentdetails[0].agency_name === null">
+                                  N/A
+                                </li>
+                              </ul>
+                          </span>
+                        </ion-item>
+
+                        <ion-item>Agent Email
+                          <span class="content-right">
+                              <ul class="jobType">
+                                <li *ngIf="detail.realagentdetails[0].agent_email !== null">
+                                  {{ detail.realagentdetails[0].agent_email }}
+                                </li>
+                                <li *ngIf="detail.realagentdetails[0].agent_email === null">
+                                  N/A
+                                </li>
+                              </ul>
+                          </span>
+                        </ion-item>
+
+                        <ion-item>Agent Name
+                          <span class="content-right">
+                              <ul class="jobType">
+                                <li *ngIf="detail.realagentdetails[0].agent_name !== null">
+                                  {{ detail.realagentdetails[0].agent_name }}
+                                </li>
+
+                                <li *ngIf="detail.realagentdetails[0].agent_name === null">
+                                  N/A
+                                </li>
+                              </ul>
+                          </span>
+                        </ion-item>
+
+                        <ion-item>Agent Number
+                          <span class="content-right">
+                              <ul class="jobType">
+                                <li *ngIf="detail.realagentdetails[0].agent_number !== null"
+                                (click)="callToCustomer(detail.realagentdetails[0].agent_number, detail)">
+                                  <ion-icon name="call"></ion-icon>{{ detail.realagentdetails[0].agent_number }}
+                                </li>
+                                <li *ngIf="detail.realagentdetails[0].agent_number === null">
+                                  N/A
+                                </li>
+                              </ul>
+                          </span>
+                        </ion-item>
+
+                        </ion-list>
+                      </ng-container>
+
+                    <ion-list *ngIf="detail.hasOwnProperty('secondInfo') && detail.secondInfo !== 'undefined'">
+                      <ion-list-header class="tittle_text">
+                        Secondary Details
+                      </ion-list-header>
+
+                      <span *ngFor="let secondary of detail.secondInfo; let id = index;">
+                        <ion-item>Name {{ id + 1 }}<span class="content-right">{{ secondary.secondary_name }}</span></ion-item>
+                        <ion-item>Phone <span class="content-right" (click)="callTo(secondary.secondary_number, detail)"><ion-icon name="call"></ion-icon>{{ secondary.secondary_number }}</span></ion-item>
+                      </span>
+                    </ion-list>
+
+                    
+                    <ion-list *ngIf="detail.hasOwnProperty('otherCleaners') && detail.otherCleaners.length > 0">
+                      <ion-list-header class="tittle_text">
+                        Other Cleaners
+                      </ion-list-header>
+
+                      <span *ngFor="let otherCleanerDetail of detail.otherCleaners; let id = index;">
+                        <ion-item>Name<span class="content-right">{{ otherCleanerDetail.staff_name }}-{{otherCleanerDetail.job_type}}</span></ion-item>
+                        <ion-item>Phone<span class="content-right" (click)="callToOtherCleaners(otherCleanerDetail.staff_mobile)"><ion-icon name="call"></ion-icon>{{ otherCleanerDetail.staff_mobile }}</span></ion-item>
+                      </span>
+                    </ion-list>
+                  </span>
+
+                  <ion-list *ngIf="detail.staffnotes.length > 0" class="notes_list">
+                    <ion-list-header class="tittle_text">
+                      Notes
+                    </ion-list-header>
+                    <div *ngFor="let notes of detail.staffnotes">
+                      <ion-item>{{ notes.heading }} </ion-item>
+                      <ion-item>By: {{ notes.staff_name }} <span class="content-right">{{ notes.date }}</span></ion-item>
+                      <ion-item>{{ notes.comment }}</ion-item>
+                    </div>
+                  </ion-list>
+
+                  <ion-list *ngIf="detail.calculateRemovalData.length > 0" class="notes_list">
+                    <ion-list-header class="tittle_text">
+                      Removals Hours Calculation
+                    </ion-list-header>
+                    <div>
+                      <ion-item>{{detail.calculateRemovalData[0].starttime}} - {{detail.calculateRemovalData[0].endtime}}<span class="content-right">{{detail.calculateRemovalData[0].exact_work_time}} hrs.</span></ion-item>
+                      <ion-item *ngIf="detail.calculateRemovalData[0].exact_work_time === 0 || detail.calculateRemovalData[0].exact_work_time === '' || detail.calculateRemovalData[0].exact_work_time === 0">Round Off<span class="content-right">0</span></ion-item>
+                      <ion-item *ngIf="detail.calculateRemovalData[0].exact_work_time !== ''">Round Off<span class="content-right">{{detail.calculateRemovalData[0].hours}} hrs.</span></ion-item>
+
+                      <ion-item *ngIf="detail.cleaning_type === 1 && !detail.calculateRemovalData[0].balance_pay">
+                        <ion-label position="floating">Extra Hours</ion-label>
+                        <ion-input type="text" clearInput placeholder="Input extra hours" [(ngModel)]="extraHours"></ion-input>
+                      </ion-item>
+                      <ion-item *ngIf="detail.cleaning_type === 1 && !detail.calculateRemovalData[0].balance_pay">
+                        <span color="royal" (click)="addHours()"><ion-icon name="add-circle"></ion-icon></span>
+                      </ion-item>
+                      <ion-item *ngIf="detail.calculateRemovalData[0].exact_work_time === 0 || detail.calculateRemovalData[0].exact_work_time === '' || detail.calculateRemovalData[0].exact_work_time === 0">Total<span class="content-right">{{detail.calculateRemovalData[0].exact_work_time}} X ${{detail.calculateRemovalData[0].truckamount}}</span></ion-item>
+                      <ion-item *ngIf="detail.calculateRemovalData[0].exact_work_time > 0">Total<span class="content-right">{{detail.calculateRemovalData[0].hours}} X ${{detail.calculateRemovalData[0].truckamount}}</span></ion-item>
+                      <ion-item><span class="content-right">${{detail.calculateRemovalData[0].totalamounttotalamount}}</span></ion-item>
+                      <ion-item>Advance<span class="content-right">${{detail.calculateRemovalData[0].paidtotalamount}}</span></ion-item>
+                      <ion-item>Balance<span class="content-right">${{detail.calculateRemovalData[0].restamount}}</span></ion-item>
+                      <ion-item *ngIf="!detail.calculateRemovalData[0].balance_pay" ><ion-button full color="danger" (click)="openSignaturePad()">CHARGE NOW</ion-button></ion-item>
+                      <ion-item *ngIf="detail.calculateRemovalData[0].balance_pay" ><ion-button full color="danger">JOB DONE</ion-button></ion-item>
+                    </div>
+                  </ion-list>  
+
+                </span>
+          </ng-template>
+          </span>
+        </div>
+        <ion-label id="myLabel">&nbsp;</ion-label>
+</ion-content>
+
+<ion-footer>
+<!-- {{page}}-{{this.navParams.get('action')}} -->
+<ion-toolbar *ngIf="page == 'active'  && action !== 1">
+  <ion-buttons class="btn-padd">
+    <ion-button (click)="pictureEvent(jobData)"><ion-icon name="image-outline"></ion-icon></ion-button>
+    <!-- OPENPOPOVER WILL BE INVOKE BY REMOVAL AND CLEANING -->
+    <ng-container *ngIf="forCleaning">
+      <ion-button (click)="openPopover(jobData, 2)" *ngIf="jobStartStat"><ion-icon name="play-outline"></ion-icon></ion-button>
+    </ng-container>
+    <ng-container *ngIf="!forCleaning">
+      <ion-button (click)="openPopover(jobData, 1)" *ngIf="jobStartStat"><ion-icon name="play-outline"></ion-icon></ion-button>
+    </ng-container>
+    <ion-button (click)="jobStartStatus(2)" *ngIf="jobEndStat"><ion-icon name="pause-outline"></ion-icon></ion-button>
+    <ion-button *ngIf="jobFin"><ion-icon name="checkmark-done-circle-outline"></ion-icon></ion-button>
+    <ion-button (click)="gotoChat()"><ion-icon name="chatbubbles-outline"></ion-icon></ion-button>
+    <ion-button (click)="callToAdmin()"><ion-icon name="call-outline"></ion-icon></ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-toolbar *ngIf="page == 'complete'">
+  <ion-buttons class="btn-padd">
+    <ion-button (click)="pictureEvent(jobData)"><ion-icon name="image-outline"></ion-icon></ion-button>
+    
+    <!-- OPENPOPOVER WILL BE INVOKE BY REMOVAL AND CLEANING -->
+    <!-- <ng-container *ngIf="forCleaning">
+      <ion-button (click)="openPopover(jobData, 2)" *ngIf="jobStartStat"><ion-icon name="play"></ion-icon></ion-button>
+    </ng-container>
+    <ng-container *ngIf="!forCleaning">
+      <ion-button (click)="openPopover(jobData, 1)" *ngIf="jobStartStat"><ion-icon name="play"></ion-icon></ion-button>
+    </ng-container>
+    <ion-button (click)="jobStartStatus(2)" *ngIf="jobEndStat"><ion-icon name="pause"></ion-icon></ion-button>
+    <ion-button *ngIf="jobFin"><ion-icon name="done-all"></ion-icon></ion-button> -->
+
+    <ion-button (click)="gotoChat()"><ion-icon name="chatbubbles-outline"></ion-icon></ion-button>
+    <ion-button (click)="callToAdmin()"><ion-icon name="call-outline"></ion-icon></ion-button>
+    
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-toolbar *ngIf="page == 'reclean'">
+  <ion-buttons class="btn-padd">
+      <ion-button (click)="pictureEvent(jobData)"><ion-icon name="image-outline"></ion-icon></ion-button>
+      <ion-button (click)="acceptDetailBeforeJobStart(jobData)" *ngIf="jobStartStat"><ion-icon name="play-circle-outline"></ion-icon></ion-button>
+      <ion-button (click)="jobStartStatusForReclean(4)" *ngIf="jobEndStat"><ion-icon name="pause-circle-outline"></ion-icon></ion-button>
+      <ion-button *ngIf="jobFin"><ion-icon name="checkmark-done-circle-outline"></ion-icon></ion-button>
+      <ion-button (click)="gotoChat()"><ion-icon name="chatbubbles-outline"></ion-icon></ion-button>
+      <ion-button (click)="callToAdmin()"><ion-icon name="call-outline"></ion-icon></ion-button>
+
+  </ion-buttons>
+</ion-toolbar>
+</ion-footer>

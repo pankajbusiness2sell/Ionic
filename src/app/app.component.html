@@ -1,0 +1,54 @@
+<ion-app>
+<ion-router-outlet></ion-router-outlet>
+<div class="sidebar">
+  <ion-menu side="start" menuId="first" contentId="main" type="overlay">
+  <ion-toolbar color="primary">
+  <ion-icon class="topicon" name="person-circle-outline"></ion-icon>
+  <ion-title>Welcome <span class="username">{{ userData }}</span></ion-title>
+  </ion-toolbar>
+  
+  <ion-content padding>
+  <ion-list>
+  <ion-item>
+  <ion-avatar item-start>
+  <ion-icon name="home-outline"></ion-icon>
+  </ion-avatar>
+  <h2>Home</h2>
+  </ion-item>
+  
+  <ion-item (click)="needAssistant()">
+  <ion-avatar item-start>
+  <ion-icon name="people-circle-outline"></ion-icon>
+  </ion-avatar>
+  <h2>Need Assistance</h2>
+  </ion-item>
+  
+  <ion-item (click)="callToAdmin()">
+  <ion-avatar item-start>
+  <ion-icon name="call-outline"></ion-icon>
+  </ion-avatar>
+  <h2>Contact Urgent</h2>
+  </ion-item>
+  
+  <ion-item (click)="gotoChat()">
+  <ion-avatar item-start>
+  <ion-icon name="chatbubbles-outline"></ion-icon>
+  </ion-avatar>
+  <h2>Chat</h2>
+  </ion-item>
+  
+  <ion-item (click)="logout()">
+  <ion-avatar item-start>
+  <ion-icon name="log-out-outline"></ion-icon>
+  </ion-avatar>
+  <h2>Logout</h2>
+  </ion-item>
+  </ion-list>
+  </ion-content>
+  </ion-menu>
+  </div>
+  
+  <ion-router-outlet id="main"></ion-router-outlet>
+  
+  <!-- <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav> -->
+</ion-app>

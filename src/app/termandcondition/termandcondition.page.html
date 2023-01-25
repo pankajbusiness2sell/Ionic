@@ -1,0 +1,24 @@
+<ion-header class="popup_header">
+  <ion-toolbar color="primary">
+    <ion-title>
+        <button [disabled]="!isActive" class="active" (click)="ScrollToBottom()"><ion-icon name="arrow-round-down"></ion-icon></button>
+        Terms of Agreement
+        <button [disabled]="!isActiveBottom" class="active" (click)="ScrollToTop()"><ion-icon name="arrow-round-up"></ion-icon></button>
+      </ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content >
+    <ion-label id="myLabel2">&nbsp;</ion-label>
+    <!-- <span *ngIf="isActive" class="active" (click)="ScrollToBottom()"><ion-icon name="arrow-dropdown"></ion-icon></span> -->
+    <span #content [ngClass]="{ 'popupTextContent': true }" [innerHtml]="tnc | safe: 'html'"></span>
+    
+  <ion-label id="myLabel">&nbsp;</ion-label>
+  <!-- <span *ngIf="isActiveBottom" class="active" (click)="ScrollToTop()"><ion-icon name="arrow-dropup"></ion-icon></span> -->
+  <ion-card>
+      <ion-button shape="round" fill="outline" color="danger" on-tap="agreeTc()">Agree</ion-button>
+  </ion-card>
+</ion-content>
+ 

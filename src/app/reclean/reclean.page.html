@@ -1,0 +1,128 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Reclean Jobs</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="refreshPage()"><ion-icon name="reload-outline"></ion-icon></ion-button>
+        <ion-button (click)="gotoChat()">
+        <ion-icon slot="icon-only" name="notifications" >
+        <span><ion-badge class="badgeIconNew badgeIcon" *ngIf="notificationCount !== '0'" item-end >{{ notificationCount }}</ion-badge></span>
+        </ion-icon>
+        </ion-button>
+        <ion-button (click)="moveToTask()">
+          <ion-icon name="calendar-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+  <div class="newjob_content" *ngIf="dashboardData.if_bool">
+      <span *ngFor="let newJobResponse of dashboardData.result">
+        <!-- {{ newJobResponse.data | json }} -->
+        <span *ngIf="newJobResponse.data.all_reclean_jobs === 'undefined'; then noRecleanJobs; else showRecleanJobs"></span>
+
+        <ng-template #noRecleanJobs>
+            <ion-card class="dumm card">
+              <ion-card-content class="card-content">
+                <ion-icon name="close-circle-outline" class="no-jobs"></ion-icon>
+                <span class="noting-found">No Jobs Found</span>
+              </ion-card-content>
+            </ion-card>
+        </ng-template>
+        <ng-template #showRecleanJobs>
+            <span *ngFor="let newJobs of newJobResponse.data.all_reclean_jobs">
+                <!-- {{ newJobs | json }} -->
+                <ion-card class="dumm card">
+                  <ion-card-content class="card-content">
+                    <div class="listingSection">
+                      <!-- {{ newJobs.jobID }} -->
+                      <div class="leftBox">
+                        <div class="listingLeft">
+                          <span class="jobId">Re-J#{{ newJobs.jobID }}</span>
+                          <span class="amount" *ngIf="staff_type_global !== 2">
+                            <span class="amt">$</span>
+                            <!-- {{ newJobs.amount_staff }} | {{ newJobs.amount_total }} -->
+                            {{ newJobs.amount_staff }}
+                          </span>
+                          <span class="preLine dateTime">
+                            <span class="opacityLow">{{ newJobs.reclean_date | date:'dd LLL yy' }}</span>
+                            <span class="dates">{{ newJobs.reclean_time }}</span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="rightBox">
+                        <div class="listingRight">
+                          <strong class="title-card">{{ newJobs.clientDetail.name }}</strong>
+                          <ul class="jobType">
+                            <li *ngFor="let jobTypeData of newJobs.jobType">
+                              {{ jobTypeData.description }}
+                            </li>
+                          </ul>
+                          <p class="microSpace" [hidden]="!newJobs.clientDetail.address">
+                              <ion-icon name="location-outline" class="micro_pin"></ion-icon>{{ newJobs.clientDetail.address }}</p>
+                              <span class="mid-area">
+                          <p [hidden]="!newJobs.clientDetail.suburb">
+                            <ion-icon name="link" class="nid_link"></ion-icon>{{ newJobs.clientDetail.suburb }}</p>
+                          <div class="plus_add_main dropdown" [hidden]="!newJobs.clientDetail.phone">
+                            <a href="javascript:void(0)" (click)="callToCustomer(newJobs.clientDetail.phone, newJobs)"  class="callMe">
+                                <ion-icon name="call"></ion-icon>{{ newJobs.clientDetail.phone }} </a>
+                          </div>
+                        </span>
+                          <!-- <span class="call_num">
+                            <a href="tel:{{newJobs.clientDetail.phone}}"></a>
+                          </span> -->
+
+                          <!-- SELECT SUB STAFF IF AVAILABLE -->
+                          <span class="mid-area">
+                            <ion-label>Sub Staff</ion-label>
+                        <div class="substaff" *ngIf="newJobs.sub_staff_list.length > 0">
+                          <ion-label class="substaff_text" *ngIf="newJobs.sub_staff_id === '0'">Select Substaff</ion-label>
+                            <ion-select name="subStaffSelector" (ionChange)="selectSubStaff($event , newJobs)" *ngIf="newJobs.sub_staff_id === '0'">
+                              <ion-select-option value="0">Select Substaff</ion-select-option>
+                              <ion-select-option *ngFor="let staff of newJobs.sub_staff_list" [value]="staff.id">{{ staff.name }}</ion-select-option>
+                            </ion-select>
+
+                            <ion-select name="subStaffSelector" [(ngModel)]="newJobs.sub_staff_id" (ionChange)="selectSubStaff($event , newJobs)" *ngIf="newJobs.sub_staff_id !== '0'">
+                                <ion-select-option value="0">Select Substaff</ion-select-option>
+                              <ion-select-option *ngFor="let staff of newJobs.sub_staff_list" [value]="staff.id">{{ staff.name }}</ion-select-option>
+                            </ion-select>   
+                        </div>
+                      </span>
+
+                        </div>
+                      </div> 
+                    </div>
+
+                    <div class="card_footer">
+
+
+
+                          <ion-tab-button expand="block" slot="start" (click)="showActiveJobDetail(newJobs)"><ion-icon name="information-circle" class="btn_icon" ></ion-icon><label class="btn-text">Details</label></ion-tab-button>
+
+                          <ion-tab-button expand="block" slot="start" (click)="acceptDetailBeforeJobStart(newJobs)" *ngIf="newJobs.finishTime == '0000-00-00 00:00:00' && newJobs.startTime == '0000-00-00 00:00:00' "><ion-icon name="play" class="btn_icon" ></ion-icon><label class="btn-text">Start</label></ion-tab-button>
+
+                          <ion-tab-button expand="block" slot="start" (click)="jobStartStatus(4, newJobs.jobID, newJobs)" *ngIf="newJobs.finishTime == '0000-00-00 00:00:00' && newJobs.startTime != '0000-00-00 00:00:00' "><ion-icon name="pause" class="btn_icon"></ion-icon><label class="btn-text">Stop</label></ion-tab-button>
+
+                          <ion-tab-button expand="block" slot="start" *ngIf="newJobs.finishTime != '0000-00-00 00:00:00' && newJobs.startTime != '0000-00-00 00:00:00' "><ion-icon name="checkmark-circle" class="btn_icon" ></ion-icon><label class="btn-text">Done</label></ion-tab-button>
+
+                          <ion-tab-button expand="block" slot="start" (click)="pictureEvent(newJobs)"><ion-icon name="image" class="btn_icon"></ion-icon><label class="btn-text">Images</label></ion-tab-button>
+                          <ion-tab-button expand="block" slot="start" (click)="gotoChat(newJobs.jobID)"><ion-icon  name="chatbubbles" class="btn_icon"></ion-icon><label class="btn-text">Chat</label></ion-tab-button>
+
+                          <ion-tab-button expand="block" slot="start" *ngIf="newJobs.staffnotes.length > 0" (click) = "sendReadnotesRequest(newJobs)"><ion-icon name="clipboard" class="btn_icon"></ion-icon><label class="btn-text">Notes</label></ion-tab-button>
+                          <!-- <ion-button (click) = "sendReadnotesRequest(newJobs)"><ion-icon name="clipboard"></ion-icon><span class="btn-text">Notes</span></ion-button> -->
+                          <ion-tab-button expand="block" slot="start" (click) = "recleanDateTIme(newJobs)"><ion-icon name="calendar" class="btn_icon"></ion-icon><label class="btn-text">Check</label></ion-tab-button>
+       
+                  </div>
+
+                  </ion-card-content>
+                </ion-card>
+              </span>
+        </ng-template>
+      </span>
+    </div>
+</ion-content>

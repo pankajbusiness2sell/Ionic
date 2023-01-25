@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>New Jobs</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="refreshPage()"><ion-icon name="reload-outline"></ion-icon></ion-button>
+        <ion-button (click)="gotoChat()">
+        <ion-icon slot="icon-only" name="notifications" >
+        <span><ion-badge class="badgeIconNew badgeIcon" *ngIf="notificationCount !== '0'" item-end >{{ notificationCount }}</ion-badge></span>
+        </ion-icon>
+        </ion-button>
+        <ion-button (click)="moveToTask()">
+          <ion-icon name="calendar-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+
+
+  <!-- <page-header> </page-header> -->
+</ion-header>
+
+<ion-content padding>
+  <!-- {{dashboardData | json}} -->
+  <div class="newjob_content" *ngIf="dashboardData.if_bool">
+    <span *ngFor="let newJobResponse of dashboardData.result">
+      <!-- {{ newJobResponse.data | json }} -->
+      <span *ngIf="newJobResponse.data.all_new_jobs === 'undefined'; then noNewJobs; else showNewJobs"></span>
+
+      <ng-template #noNewJobs>
+        <ion-card class="card">
+          <ion-card-content class="card-content">
+            <ion-icon name="close-circle-outline" class="close-icon"></ion-icon>
+            <span class="noting-found">No Jobs Found</span>
+          </ion-card-content>
+        </ion-card>
+      </ng-template>
+      <ng-template #showNewJobs>
+        <span *ngFor="let newJobs of newJobResponse.data.all_new_jobs">
+          <!-- {{ newJobs | json }} -->
+          <ion-card class="card">
+            <ion-card-content class="card-content">
+              <div class="listingSection">
+                <div class="leftBox">
+                  <div class="listingLeft">
+                    <span class="jobId">J#{{ newJobs.jobID }}</span>
+                    <span class="amount"><span class="amt">$</span>{{ newJobs.amount_total }}</span>
+                    <span class="preLine dateTime"><span
+                        class="opacityLow">{{ newJobs.job_date | date:'dd LLL yy' }}</span>
+                      <span class="dates">{{ newJobs.job_time }}</span>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="rightBox">
+                  <div class="listingRight">
+                    <span class="tag">New</span>
+                    <strong class="title-card">{{ newJobs.clientDetail.name }}</strong>
+                    <ul class="jobType">
+                      <li *ngFor="let jobType of newJobs.jobType">
+                        {{ jobType.description }}
+                      </li>
+                    </ul>
+
+                    <p class="sub" [hidden]="!newJobs.clientDetail.suburb">{{ newJobs.clientDetail.suburb }}</p>
+                    <p class="microSpace">Assigned Time :<span class="times"> {{ newJobs.staff_assign_date }}</span></p>
+                    <div class="buttonSection">
+                      <ion-button class="btn accpted" (click)="jobAcceptDenyStatus('accept', newJobs.jobID)">Accept
+                      </ion-button>
+
+                      <ion-button class="btn reassign-btn" *ngIf="newJobs.deny"
+                        (click)="checkOptionBeforeDeny('deny', newJobs.jobID)">Deny</ion-button>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </ion-card-content>
+          </ion-card>
+
+        </span>
+      </ng-template>
+
+    </span>
+  </div>
+</ion-content>
